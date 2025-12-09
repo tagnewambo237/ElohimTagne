@@ -4,38 +4,39 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 
+// Updated projects based on user CV
 const projects = [
     {
         id: 1,
-        title: "Luminous",
-        category: "Web Experience",
-        year: "2025",
-        image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
-        slug: "luminous"
+        title: "NBIKOPAY",
+        category: "Fintech App",
+        year: "2024",
+        image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?q=80&w=2670&auto=format&fit=crop",
+        slug: "nbikopay"
     },
     {
         id: 2,
-        title: "Nebula",
-        category: "Creative Coding",
+        title: "Port Autonome d’Abidjan",
+        category: "Incident Management",
         year: "2024",
-        image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2574&auto=format&fit=crop",
-        slug: "nebula"
+        image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop",
+        slug: "port-abidjan"
     },
     {
         id: 3,
-        title: "Chronos",
-        category: "Mobile App",
+        title: "Destiny Life",
+        category: "Mobile UX/UI",
         year: "2024",
-        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop",
-        slug: "chronos"
+        image: "https://images.unsplash.com/photo-1512428559087-560fa0db7989?q=80&w=2670&auto=format&fit=crop",
+        slug: "destiny-life"
     },
     {
         id: 4,
-        title: "Aether",
-        category: "WebGL Interface",
-        year: "2023",
-        image: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=2670&auto=format&fit=crop",
-        slug: "aether"
+        title: "System Evaluation",
+        category: "Microservices Architecture",
+        year: "2024",
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2672&auto=format&fit=crop",
+        slug: "microservices"
     }
 ];
 
@@ -69,15 +70,15 @@ export default function Projects() {
     }, [activeProject]);
 
     return (
-        <section ref={containerRef} className="py-32 px-6 md:px-12 bg-background relative z-10">
+        <section id="work" ref={containerRef} className="py-32 px-6 md:px-12 bg-background relative z-10">
             <div className="max-w-7xl mx-auto">
-                <h2 className="text-sm uppercase tracking-widest mb-16 opacity-60">Selected Works</h2>
+                <h2 className="text-sm uppercase tracking-widest mb-16 opacity-60">Projets Sélectionnés</h2>
 
                 <div className="flex flex-col">
                     {projects.map((project) => (
                         <Link
                             key={project.id}
-                            href={`/work/${project.slug}`}
+                            href={`#`} // Temporarily # as detailed pages need data
                             className="group relative border-t border-gray-200 dark:border-gray-800 py-12 flex justify-between items-center transition-all hover:px-4"
                             onMouseEnter={() => setActiveProject(project.id)}
                             onMouseLeave={() => setActiveProject(null)}
@@ -101,7 +102,7 @@ export default function Projects() {
             {/* Floating Image Preview */}
             <div
                 ref={cursorImageRef}
-                className="fixed top-0 left-0 w-[400px] h-[250px] pointer-events-none z-20 overflow-hidden rounded-lg opacity-0 -translate-x-1/2 -translate-y-1/2 hidden md:block"
+                className="fixed top-0 left-0 w-[400px] h-[250px] pointer-events-none z-[60] overflow-hidden rounded-lg opacity-0 -translate-x-1/2 -translate-y-1/2 hidden md:block"
                 style={{
                     opacity: activeProject ? 1 : 0,
                     transform: `translate(-50%, -50%) scale(${activeProject ? 1 : 0.8})`,
@@ -121,7 +122,7 @@ export default function Projects() {
             {/* View Label */}
             <div
                 ref={cursorLabelRef}
-                className="fixed top-0 left-0 w-20 h-20 bg-accent text-white rounded-full flex items-center justify-center pointer-events-none z-30 opacity-0 -translate-x-1/2 -translate-y-1/2 hidden md:flex mix-blend-difference"
+                className="fixed top-0 left-0 w-20 h-20 bg-accent text-white rounded-full flex items-center justify-center pointer-events-none z-[70] opacity-0 -translate-x-1/2 -translate-y-1/2 hidden md:flex mix-blend-difference"
                 style={{
                     opacity: activeProject ? 1 : 0,
                     transform: `translate(-50%, -50%) scale(${activeProject ? 1 : 0})`,

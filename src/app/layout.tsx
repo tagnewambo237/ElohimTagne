@@ -3,6 +3,8 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import CustomCursor from "@/components/ui/CustomCursor";
+import { ThemeProvider } from "@/components/layout/ThemeProvider";
+import Noise from "@/components/ui/Noise";
 
 const inter = Inter({
   variable: "--font-geist-sans", // Keeping variable name for compatibility with existing CSS or changing it. Let's keep it consistent with globals.css
@@ -32,10 +34,13 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground overflow-x-hidden`}
       >
-        <SmoothScroll>
-          <CustomCursor />
-          {children}
-        </SmoothScroll>
+        <ThemeProvider defaultTheme="system" storageKey="portfolio-theme">
+          <SmoothScroll>
+            {children}
+            <CustomCursor />
+            <Noise />
+          </SmoothScroll>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -33,41 +33,60 @@ export default function CustomCursor() {
             });
         };
 
-        // Add hover states for interactive elements
-        const handleMouseEnter = () => {
-            gsap.to(outline, {
-                scale: 1.5,
-                backgroundColor: 'rgba(134, 134, 139, 0.1)',
-                duration: 0.3
-            });
+        const onHover = (e: MouseEvent) => {
+            const target = e.target as HTMLElement;
+
+            // Check for interactive elements or magnetic
+            const interactive = target.closest('a, button, input, textarea, .interactive');
+            const magnetic = target.closest('[data-magnetic]');
+
+            if (magnetic) {
+                gsap.to(outline, {
+                    scale: 2.5,
+                    backgroundColor: 'transparent',
+                    borderWidth: '1px',
+                    borderColor: 'var(--accent)',
+                    duration: 0.3
+                });
+                gsap.to(dot, {
+                    scale: 0,
+                    duration: 0.3
+                });
+            } else if (interactive) {
+                gsap.to(outline, {
+                    scale: 1.5,
+                    backgroundColor: 'rgba(134, 134, 139, 0.1)',
+                    borderColor: 'var(--muted)',
+                    borderWidth: '1px',
+                    duration: 0.3
+                });
+                gsap.to(dot, {
+                    scale: 1,
+                    duration: 0.3
+                });
+            } else {
+                gsap.to(outline, {
+                    scale: 1,
+                    backgroundColor: 'transparent',
+                    borderColor: 'var(--muted)',
+                    borderWidth: '1px',
+                    duration: 0.3
+                });
+                gsap.to(dot, {
+                    scale: 1,
+                    duration: 0.3
+                });
+            }
         };
 
-        const handleMouseLeave = () => {
-            gsap.to(outline, {
-                scale: 1,
-                backgroundColor: 'transparent',
-                duration: 0.3
-            });
-        };
-
+        // Instead of mouseenter/leave on elements, we use mouseover on window for delegation
         window.addEventListener('mousemove', moveCursor);
-
-        // Select all interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, input, textarea, .interactive');
-
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', handleMouseEnter);
-            el.addEventListener('mouseleave', handleMouseLeave);
-        });
-
-        // MutationObserver to attach listeners to new elements (simplified for now)
+        window.addEventListener('mouseover', onHover);
+        // window.addEventListener('mouseout', onHover); // Mouseover bubbles, so it catches entry.
 
         return () => {
             window.removeEventListener('mousemove', moveCursor);
-            interactiveElements.forEach(el => {
-                el.removeEventListener('mouseenter', handleMouseEnter);
-                el.removeEventListener('mouseleave', handleMouseLeave);
-            });
+            window.removeEventListener('mouseover', onHover);
         };
     }, []);
 
