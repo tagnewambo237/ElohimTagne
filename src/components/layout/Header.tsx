@@ -7,6 +7,7 @@ import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import Magnetic from "@/components/ui/Magnetic";
 import HangingCat from "@/components/ui/HangingCat";
+import HangingCatMobile from "@/components/ui/HangingCatMobile";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -20,6 +21,7 @@ export default function Header() {
         { name: t.nav.home, href: '/' },
         { name: t.nav.projects, href: '/projects' },
         { name: t.nav.about, href: '/about' },
+        { name: t.nav.playground, href: '/playground' },
     ];
 
     useEffect(() => {
@@ -65,9 +67,12 @@ export default function Header() {
                     className="pointer-events-auto glass rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl shadow-stone-500/5 dark:shadow-black/20 relative" // Added relative
                 >
                     <HangingCat />
-                    <Link href="/" className="font-bold tracking-tight text-foreground hover:text-accent transition-colors">
-                        ELOHIM<span className="text-accent text-xs align-top">®</span>
-                    </Link>
+                    <div className="flex items-center gap-2 relative">
+                        <Link href="/" className="font-bold tracking-tight text-foreground hover:text-accent transition-colors">
+                            ELOHIM<span className="text-accent text-xs align-top">®</span>
+                        </Link>
+                        <HangingCatMobile />
+                    </div>
 
                     <nav className="hidden md:flex items-center gap-6">
                         {navItems.map((item) => (

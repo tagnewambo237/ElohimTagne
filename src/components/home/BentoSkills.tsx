@@ -45,7 +45,7 @@ export default function BentoSkills() {
     }, []);
 
     return (
-        <section ref={containerRef} className="py-32 px-6 md:px-12 bg-background relative z-10">
+        <section ref={containerRef} className="py-20 md:py-32 px-6 md:px-12 bg-background relative z-10">
             <div className="max-w-7xl mx-auto">
                 <div className="mb-20 text-center md:text-left">
                     <span className="text-sm font-mono uppercase tracking-widest opacity-60">{t.skills.label}</span>
@@ -56,7 +56,7 @@ export default function BentoSkills() {
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                     {/* Large Card - Intro or main skill */}
-                    <div className="bento-item col-span-2 row-span-2 rounded-3xl p-8 bg-[var(--card-bg)] border border-[var(--card-border)] relative overflow-hidden group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+                    <div className="bento-item col-span-2 row-span-2 rounded-2xl md:rounded-3xl p-8 bg-[var(--card-bg)] border border-[var(--card-border)] relative overflow-hidden group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
                         {/* Subtle animated background grid */}
                         <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity"
                             style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '20px 20px' }}
@@ -77,7 +77,7 @@ export default function BentoSkills() {
                     {skillData.map((skill, i) => (
                         <div
                             key={i}
-                            className="bento-item col-span-1 rounded-3xl p-6 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-accent/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between aspect-square relative"
+                            className="bento-item col-span-1 rounded-2xl md:rounded-3xl p-5 md:p-6 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-accent/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between aspect-square relative"
                         >
                             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${skill.color} mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-sm`}>
                                 <skill.icon size={24} />
@@ -90,7 +90,7 @@ export default function BentoSkills() {
                     ))}
 
                     {/* Wide Card */}
-                    <div className="bento-item col-span-2 rounded-3xl p-8 bg-foreground text-background relative overflow-hidden flex items-center justify-between group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+                    <div className="bento-item col-span-2 rounded-2xl md:rounded-3xl p-8 bg-foreground text-background relative overflow-hidden flex items-center justify-between group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
                         <div className="relative z-10">
                             <h3 className="text-2xl font-medium mb-1">{t.skills.cards.github_title}</h3>
                             <p className="opacity-60">{t.skills.cards.github_desc}</p>
@@ -103,7 +103,7 @@ export default function BentoSkills() {
                     </div>
 
                     {/* Availability/Locations Card */}
-                    <div className="bento-item col-span-2 rounded-3xl p-6 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-accent/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 flex items-center justify-center">
+                    <div className="bento-item col-span-2 rounded-2xl md:rounded-3xl p-6 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-accent/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 flex items-center justify-center">
                         <AvailabilityStatus />
                     </div>
 

@@ -4,6 +4,7 @@ export const translations = {
             home: "Accueil",
             projects: "Projets",
             about: "À propos",
+            playground: "Jeu",
             contact: "Discutons"
         },
         hero: {
@@ -63,6 +64,16 @@ export const translations = {
             liveSite: "Voir le site",
             notFound: "Projet non trouvé"
         },
+        game: {
+            title: "Code Snake",
+            subtitle: "Mangez des bugs, écrivez du code.",
+            message: "Hello ! Oui, c'est totalement inutile, mais c'est mon portfolio. Je suis fan de jeux vidéo, de chats et de café, alors on va s'amuser !!",
+            start: "Appuyez pour jouer",
+            score: "Score",
+            highScore: "Record",
+            gameOver: "Game Over",
+            restart: "Rejouer"
+        },
         footer: {
             title: "Travaillons ensemble.",
             rights: "Tous droits réservés.",
@@ -74,9 +85,12 @@ export const translations = {
             home: "Home",
             projects: "Projects",
             about: "About",
+            playground: "Playground",
             contact: "Let's Talk"
         },
-        hero: {
+        // ... (existing translations) (Wait, I need to make sure I don't break the object structure, I will replace the end of file content carefully)
+        hero: { // Just referencing structure
+            // ...
             greeting: "Elohim",
             surname: "TAGNE.",
             role: "Full-Stack Developer & UI/UX Designer — I craft bespoke digital experiences.",
@@ -132,6 +146,16 @@ export const translations = {
             role: "Role",
             liveSite: "Visit Live Site",
             notFound: "Project not found"
+        },
+        game: {
+            title: "Code Snake",
+            subtitle: "Eat bugs, write code.",
+            message: "Hello! Yes, this is totally useless, but it's my portfolio. I'm a fan of video games, cats, and coffee, so let's have some fun!!",
+            start: "Press to play",
+            score: "Score",
+            highScore: "High Score",
+            gameOver: "Game Over",
+            restart: "Play Again"
         },
         footer: {
             title: "Let's work together.",

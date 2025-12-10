@@ -83,14 +83,14 @@ export default function Hero() {
 
                 {/* Nom */}
                 <h1 className="text-5xl md:text-8xl lg:text-9xl font-semibold tracking-tighter leading-[1.1] mb-6">
-                    <span className="inline-block text-gray-900 dark:text-white"><TextReveal delay={0.2}>{t.hero.greeting}</TextReveal></span>
+                    <div className="inline-block text-foreground"><TextReveal delay={0.2}>{t.hero.greeting}</TextReveal></div>
                     {' '}
-                    <span className="inline-block text-accent"><TextReveal delay={0.3}>{t.hero.surname}</TextReveal></span>
+                    <div className="inline-block text-accent"><TextReveal delay={0.3}>{t.hero.surname}</TextReveal></div>
                 </h1>
 
                 {/* Sous-titre */}
                 <div className="mt-8 flex justify-center">
-                    <div className="text-lg md:text-xl font-light text-gray-600 dark:text-gray-300 max-w-2xl leading-relaxed">
+                    <div className="text-lg md:text-xl font-light text-muted max-w-2xl leading-relaxed">
                         <TextReveal delay={0.6} duration={1}>
                             {t.hero.role}
                         </TextReveal>

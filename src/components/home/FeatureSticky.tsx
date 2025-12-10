@@ -56,18 +56,20 @@ export default function FeatureSticky() {
 
     return (
         <section className="relative bg-gray-900 dark:bg-gray-950 text-white">
-            <div ref={componentRef} className="h-screen w-full flex items-center overflow-hidden">
-                <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-16 px-6 md:px-12 h-[80vh] items-center">
+            <div ref={componentRef} className="h-[100dvh] w-full flex items-center overflow-hidden">
+                <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 px-6 md:px-12 h-[85dvh] items-center">
 
                     {/* Left Col: Text Mask */}
-                    <div className="h-64 overflow-hidden relative border-l-2 border-white/20 pl-8">
+                    {/* On mobile: 35vh height. On desktop: 64 (16rem = 256px) or larger? Let's use responsive fixed heights matching animations */}
+                    {/* We need consistent height for the translation to work properly. Let's use calc or vh. */}
+                    <div className="h-[35dvh] md:h-96 overflow-hidden relative border-l-2 border-white/20 pl-6 md:pl-8 flex flex-col justify-center order-2 md:order-1">
                         <div className="h-full">
                             {content.map((item) => (
-                                <div key={item.id} className="feature-text-block h-64 flex flex-col justify-center mt-2">
-                                    <h3 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 leading-tight">
+                                <div key={item.id} className="feature-text-block h-[35dvh] md:h-96 flex flex-col justify-center">
+                                    <h3 className="text-3xl md:text-6xl font-bold tracking-tighter mb-3 md:mb-4 leading-tight">
                                         {item.title}
                                     </h3>
-                                    <p className="text-xl opacity-70 font-light max-w-md leading-relaxed">
+                                    <p className="text-lg md:text-xl opacity-70 font-light max-w-md leading-relaxed line-clamp-4 md:line-clamp-none">
                                         {item.description}
                                     </p>
                                 </div>
@@ -76,7 +78,7 @@ export default function FeatureSticky() {
                     </div>
 
                     {/* Right Col: Image Mask */}
-                    <div className="h-[50vh] md:h-[60vh] w-full overflow-hidden rounded-3xl relative shadow-2xl shadow-black/20 dark:shadow-white/5">
+                    <div className="h-[40dvh] md:h-[60vh] w-full overflow-hidden rounded-3xl relative shadow-2xl shadow-black/20 dark:shadow-white/5 order-1 md:order-2">
                         <div className="h-full">
                             {content.map((item) => (
                                 <div key={item.id} className="feature-image-block h-full w-full relative">
@@ -85,7 +87,7 @@ export default function FeatureSticky() {
                                         alt={item.title}
                                         className="absolute inset-0 w-full h-full object-cover scale-105"
                                     />
-                                    {/* Gradient Overlay for better integration */}
+                                    {/* Gradient Overlay */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent mix-blend-multiply opacity-60" />
                                 </div>
                             ))}
