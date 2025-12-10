@@ -91,7 +91,7 @@ export default function Hero() {
 
             {/* Scroll Indicator */}
             <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-gray-600 dark:text-white">
-                <span className="text-xs uppercase tracking-widest opacity-60">Scroll</span>
+                <span className="text-xs uppercase tracking-widest opacity-60">Défiler</span>
                 <div className="w-[1px] h-12 bg-gray-300 dark:bg-white/20 overflow-hidden">
                     <div className="w-full h-full bg-gray-600 dark:bg-white animate-scroll-down"></div>
                 </div>

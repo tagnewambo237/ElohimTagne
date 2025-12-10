@@ -49,8 +49,8 @@ export default function HorizontalGallery() {
         <section id="work" ref={sectionRef} className="h-screen bg-gray-900 dark:bg-gray-950 text-white overflow-hidden relative flex items-center">
 
             <div className="absolute top-12 left-6 md:left-12 z-10">
-                <span className="text-sm font-mono uppercase tracking-widest opacity-60">Selected Works</span>
-                <h2 className="text-4xl font-semibold mt-2">Recent Projects.</h2>
+                <span className="text-sm font-mono uppercase tracking-widest opacity-60">Travaux Sélectionnés</span>
+                <h2 className="text-4xl font-semibold mt-2">Projets Récents.</h2>
             </div>
 
             <div ref={sliderRef} className="flex gap-16 pl-[10vw] pr-12 w-fit">

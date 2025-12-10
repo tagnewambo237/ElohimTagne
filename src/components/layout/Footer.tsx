@@ -9,8 +9,8 @@ export default function Footer() {
 
                 <div className="flex flex-col gap-8">
                     <h2 className="text-5xl md:text-8xl lg:text-9xl font-semibold tracking-tighter leading-none">
-                        Let's work <br />
-                        <span className="text-gray-500 dark:text-gray-400">together.</span>
+                        Travaillons <br />
+                        <span className="text-gray-500 dark:text-gray-400">ensemble.</span>
                     </h2>
                     <div className="flex flex-col md:flex-row gap-8 mt-12">
                         <a href="mailto:juniortagne2001@gmail.com" className="px-8 py-4 border border-white/20 rounded-full hover:bg-white hover:text-gray-900 transition-all text-xl">
@@ -33,10 +33,10 @@ export default function Footer() {
                     <div className="flex flex-col items-end gap-2 text-right">
                         <p className="text-sm text-gray-500 dark:text-gray-400">
                             &copy; 2025 Elohim Junior Tagne Wambo. <br />
-                            All Rights Reserved.
+                            Tous droits réservés.
                         </p>
                         <p className="text-xs text-gray-600 dark:text-gray-500">
-                            Crafted with Next.js, Tailwind, & GSAP.
+                            Conçu avec Next.js, Tailwind, & GSAP.
                         </p>
                     </div>
                 </div>

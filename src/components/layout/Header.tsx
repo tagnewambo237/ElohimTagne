@@ -9,9 +9,9 @@ import Magnetic from "@/components/ui/Magnetic";
 import HangingCat from "@/components/ui/HangingCat";
 
 const navItems = [
-    { name: 'Projects', href: '/projects' },
-    { name: 'About', href: '/about' },
-    { name: 'Home', href: '/' },
+    { name: 'Accueil', href: '/' },
+    { name: 'Projets', href: '/projects' },
+    { name: 'À propos', href: '/about' },
 ];
 
 export default function Header() {
@@ -93,7 +93,7 @@ export default function Header() {
                                 href="#contact"
                                 className="hidden md:flex items-center gap-2 bg-foreground text-background px-5 py-2 rounded-full text-sm font-medium hover:scale-105 transition-transform active:scale-95"
                             >
-                                Let's Talk <ArrowUpRight size={14} />
+                                Discutons <ArrowUpRight size={14} />
                             </a>
                         </Magnetic>
                     </div>

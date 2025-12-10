@@ -76,9 +76,9 @@ export default function Projects() {
             <div className="max-w-7xl mx-auto">
                 <div className="flex items-end justify-between mb-24">
                     <div>
-                        <span className="text-xs font-mono uppercase tracking-[0.2em] opacity-50 block mb-4">Selected Works</span>
+                        <span className="text-xs font-mono uppercase tracking-[0.2em] opacity-50 block mb-4">Projets Sélectionnés</span>
                         <h2 className="text-4xl md:text-6xl font-light tracking-tight">
-                            <TextReveal>Digital Craft.</TextReveal>
+                            <TextReveal>Artisanat Digital.</TextReveal>
                         </h2>
                     </div>
                     <div className="hidden md:block">
@@ -149,7 +149,7 @@ export default function Projects() {
                     transition: 'opacity 0.3s, transform 0.3s'
                 }}
             >
-                <span className="text-xs font-semibold tracking-widest uppercase mb-1">View</span>
+                <span className="text-xs font-semibold tracking-widest uppercase mb-1">Voir</span>
                 <span className="text-xl animate-bounce">✿</span>
             </div>
 

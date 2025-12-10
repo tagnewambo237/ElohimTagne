@@ -18,8 +18,8 @@ export default function ProjectDetailsPage() {
         return (
             <main className="w-full min-h-screen flex items-center justify-center bg-background text-foreground">
                 <div className="text-center">
-                    <h1 className="text-4xl font-bold">Project not found</h1>
-                    <Link href="/projects" className="mt-4 inline-block underline">Back to Projects</Link>
+                    <h1 className="text-4xl font-bold">Projet non trouvé</h1>
+                    <Link href="/projects" className="mt-4 inline-block underline">Retour aux projets</Link>
                 </div>
             </main>
         );
@@ -53,19 +53,19 @@ export default function ProjectDetailsPage() {
                 {/* Content */}
                 <div className="max-w-7xl mx-auto px-6 md:px-12">
                     <Link href="/projects" className="inline-flex items-center gap-2 text-sm uppercase tracking-widest opacity-60 hover:opacity-100 mb-12 transition-opacity">
-                        <ArrowLeft size={16} /> Back to Projects
+                        <ArrowLeft size={16} /> Retour aux projets
                     </Link>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
                         <div className="md:col-span-2">
-                            <h2 className="text-2xl md:text-3xl font-medium mb-8">Overview</h2>
+                            <h2 className="text-2xl md:text-3xl font-medium mb-8">Présentation</h2>
                             <p className="text-lg md:text-xl leading-relaxed opacity-80 mb-12">
                                 {project.description}
                             </p>
-                            <p className="text-lg md:text-xl leading-relaxed opacity-80">
+                            {/* <p className="text-lg md:text-xl leading-relaxed opacity-80">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </p>
+                            </p> */}
                         </div>
 
                         <div className="md:col-span-1">
@@ -81,13 +81,13 @@ export default function ProjectDetailsPage() {
                             </div>
 
                             <div className="border-t border-white/10 pt-8">
-                                <h3 className="text-sm uppercase tracking-widest opacity-50 mb-4">Role</h3>
+                                <h3 className="text-sm uppercase tracking-widest opacity-50 mb-4">Rôle</h3>
                                 <p className="text-lg">Lead Developer & Designer</p>
                             </div>
 
                             <div className="mt-12">
                                 <a href={project.link} className="inline-block bg-foreground text-background px-8 py-4 rounded-full font-medium hover:scale-105 transition-transform">
-                                    Visit Live Site ↗
+                                    Voir le site ↗
                                 </a>
                             </div>
                         </div>

@@ -26,17 +26,17 @@ export default function BentoSkills() {
         const items = gsap.utils.toArray('.bento-item');
 
         gsap.fromTo(items,
-            { y: 50, opacity: 0, scale: 0.9 },
+            { y: 100, opacity: 0, scale: 0.8 },
             {
                 y: 0,
                 opacity: 1,
                 scale: 1,
-                duration: 0.8,
+                duration: 1.2,
                 stagger: 0.1,
-                ease: "power2.out",
+                ease: "back.out(1.7)",
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start: "top 80%",
+                    start: "top 70%",
                 }
             }
         );
@@ -48,20 +48,25 @@ export default function BentoSkills() {
                 <div className="mb-20 text-center md:text-left">
                     <span className="text-sm font-mono uppercase tracking-widest opacity-60">Expertise</span>
                     <h2 className="text-4xl md:text-6xl font-semibold mt-4 tracking-tight">
-                        Digital <span className="text-accent italic">Arsenal.</span>
+                        Arsenal <span className="text-accent italic">Digital.</span>
                     </h2>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                     {/* Large Card - Intro or main skill */}
-                    <div className="bento-item col-span-2 row-span-2 rounded-3xl p-8 bg-[var(--card-bg)] border border-[var(--card-border)] relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 p-8 opacity-20 group-hover:opacity-40 transition-opacity">
+                    <div className="bento-item col-span-2 row-span-2 rounded-3xl p-8 bg-[var(--card-bg)] border border-[var(--card-border)] relative overflow-hidden group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+                        {/* Subtle animated background grid */}
+                        <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity"
+                            style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '20px 20px' }}
+                        />
+
+                        <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity duration-500 group-hover:rotate-12 transform origin-top-right">
                             <Code2 size={120} />
                         </div>
                         <div className="relative z-10 h-full flex flex-col justify-end">
-                            <h3 className="text-3xl font-medium mb-2">Fullstack Development</h3>
+                            <h3 className="text-3xl font-medium mb-2">Développement Fullstack</h3>
                             <p className="opacity-60 text-lg">
-                                Building scalable applications from pixel-perfect frontends to robust backends.
+                                Création d'applications scalables, du frontend pixel-perfect au backend robuste.
                             </p>
                         </div>
                     </div>
@@ -70,25 +75,25 @@ export default function BentoSkills() {
                     {skillData.map((skill, i) => (
                         <div
                             key={i}
-                            className="bento-item col-span-1 rounded-3xl p-6 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-accent/30 transition-colors group flex flex-col justify-between aspect-square"
+                            className="bento-item col-span-1 rounded-3xl p-6 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-accent/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between aspect-square relative"
                         >
-                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${skill.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${skill.color} mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-sm`}>
                                 <skill.icon size={24} />
                             </div>
                             <div>
-                                <h4 className="font-medium text-lg leading-tight mb-1">{skill.title}</h4>
+                                <h4 className="font-medium text-lg leading-tight mb-1 group-hover:text-accent transition-colors">{skill.title}</h4>
                                 <p className="text-xs opacity-50 font-mono leading-tight">{skill.desc}</p>
                             </div>
                         </div>
                     ))}
 
                     {/* Wide Card */}
-                    <div className="bento-item col-span-2 rounded-3xl p-8 bg-foreground text-background relative overflow-hidden flex items-center justify-between group">
+                    <div className="bento-item col-span-2 rounded-3xl p-8 bg-foreground text-background relative overflow-hidden flex items-center justify-between group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
                         <div className="relative z-10">
-                            <h3 className="text-2xl font-medium mb-1">Github Activity</h3>
-                            <p className="opacity-60">Open Source Contributor</p>
+                            <h3 className="text-2xl font-medium mb-1">Activité Github</h3>
+                            <p className="opacity-60">Contributeur Open Source</p>
                         </div>
-                        <div className="relative z-10">
+                        <div className="relative z-10 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500">
                             <Github size={48} className="opacity-80" />
                         </div>
                         {/* Decorative Background */}
@@ -96,7 +101,7 @@ export default function BentoSkills() {
                     </div>
 
                     {/* Availability/Locations Card */}
-                    <div className="bento-item col-span-2 rounded-3xl p-6 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-accent/30 transition-colors flex items-center justify-center">
+                    <div className="bento-item col-span-2 rounded-3xl p-6 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-accent/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 flex items-center justify-center">
                         <AvailabilityStatus />
                     </div>
 

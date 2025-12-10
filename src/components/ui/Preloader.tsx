@@ -161,7 +161,7 @@ export default function Preloader() {
                     Elohim <span className="italic text-[#6F4E37]">Expresso</span>
                 </h2>
                 <p className="text-sm opacity-60 font-light">
-                    Compiling caffeine into code...
+                    Compilation de caféine en code...
                 </p>
             </div>
 

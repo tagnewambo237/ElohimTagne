@@ -7,11 +7,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const experienceData = [
-    { period: "2024 - Present", role: "UX/UI Designer & Backend Dev", company: "M4M Overalls", desc: "Crafting backend architectures and designing user-centric interfaces." },
-    { period: "2024 - Present", role: "Odoo Integrator", company: "MSL-iTECH", desc: "Custom module development and ERP integration strategies." },
-    { period: "2024", role: "Fullstack Developer", company: "Azieleh", desc: "Optimizing NBIKOPAY user experience and performance." },
-    { period: "2024", role: "UX/UI Designer", company: "ONA CONSULTING", desc: "Prototyping mobile solutions for Port Autonome d'Abidjan." },
-    { period: "2022 - 2024", role: "Freelance Designer", company: "AfroGeek Academy", desc: "Mentoring and designing digital products." },
+    { period: "2024 - Présent", role: "UX/UI Designer & Backend Dev", company: "M4M Overalls", desc: "Conception d'architectures backend et design d'interfaces utilisateur centrées sur l'humain." },
+    { period: "2024 - Présent", role: "Intégrateur Odoo", company: "MSL-iTECH", desc: "Développement de modules personnalisés et stratégies d'intégration ERP." },
+    { period: "2024", role: "Développeur Fullstack", company: "Azieleh", desc: "Optimisation de l'expérience utilisateur et des performances de NBIKOPAY." },
+    { period: "2024", role: "UX/UI Designer", company: "ONA CONSULTING", desc: "Prototypage de solutions mobiles pour le Port Autonome d'Abidjan." },
+    { period: "2022 - 2024", role: "Designer Freelance", company: "AfroGeek Academy", desc: "Mentorat et conception de produits numériques." },
 ];
 
 export default function ExperienceStack() {
@@ -42,8 +42,8 @@ export default function ExperienceStack() {
         <section id="experience" className="py-32 px-6 md:px-12 bg-background relative z-10">
             <div className="max-w-3xl mx-auto">
                 <div className="mb-20">
-                    <span className="text-sm font-mono uppercase tracking-widest opacity-60">Journey</span>
-                    <h2 className="text-4xl md:text-6xl font-semibold mt-4 tracking-tight">Experience.</h2>
+                    <span className="text-sm font-mono uppercase tracking-widest opacity-60">Parcours</span>
+                    <h2 className="text-4xl md:text-6xl font-semibold mt-4 tracking-tight">Expérience.</h2>
                 </div>
 
                 <ul ref={listRef} className="space-y-4 md:space-y-0 relative">

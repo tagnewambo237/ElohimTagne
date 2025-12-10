@@ -16,9 +16,9 @@ export default function ProjectsPage() {
             <section className="pt-48 px-6 md:px-12 max-w-7xl mx-auto min-h-screen">
                 <div className="mb-24 flex flex-col md:flex-row justify-between items-end gap-8">
                     <div>
-                        <span className="font-mono text-sm tracking-widest uppercase opacity-60">Selected Works (2022-2025)</span>
+                        <span className="font-mono text-sm tracking-widest uppercase opacity-60">Travaux Sélectionnés (2022-2025)</span>
                         <TextReveal className="text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tighter mt-4">
-                            All Projects.
+                            Tous les Projets.
                         </TextReveal>
                     </div>
                     <div className="pb-4">
@@ -33,7 +33,7 @@ export default function ProjectsPage() {
                             href={`/projects/${project.id}`}
                             className={`group block w-full ${index % 2 !== 0 ? 'md:mt-24' : ''}`}
                         >
-                            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gray-900 mb-6">
+                            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gray-900 mb-6 border border-white/10">
                                 <Image
                                     src={project.img}
                                     alt={project.title}
@@ -49,7 +49,7 @@ export default function ProjectsPage() {
                                     <p className="text-sm font-mono opacity-60">{project.category}</p>
                                 </div>
                                 <span className="opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 duration-300">
-                                    View Project ↗
+                                    Voir le Projet ↗
                                 </span>
                             </div>
                         </Link>
