@@ -7,15 +7,18 @@ import ParallaxGallery from "@/components/about/ParallaxGallery";
 import CoffeeAccent from "@/components/ui/CoffeeAccent";
 import PeekabooCat from "@/components/ui/PeekabooCat";
 import Image from "next/image";
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function AboutPage() {
+    const { t } = useLanguage();
+
     return (
         <main className="w-full min-h-screen bg-background text-foreground overflow-hidden">
             <Header />
 
             <section className="pt-48 px-6 md:px-12 max-w-7xl mx-auto min-h-screen flex flex-col justify-center">
                 <TextReveal className="text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tighter mb-12">
-                    Elohim Junior.
+                    {t.about.title}
                 </TextReveal>
 
                 <div className="flex flex-col md:flex-row gap-12 items-start mt-12">
@@ -30,21 +33,20 @@ export default function AboutPage() {
                             <PeekabooCat />
                         </div>
                         <div className="flex gap-6 mt-6 text-sm opacity-60 font-mono justify-center md:justify-start">
-                            <span>📍 Yaoundé, Cameroun</span>
-                            <span>🌐 Français (Natif) – Anglais (A2)</span>
+                            <span>📍 {t.about.location}</span>
+                            <span>🌐 {t.about.language}</span>
                         </div>
                     </div>
 
                     <div className="w-full md:w-1/2 flex flex-col gap-8 text-xl md:text-2xl font-light opacity-90 leading-relaxed text-stone-600 dark:text-stone-300">
                         <TextReveal duration={1} delay={0.2}>
-                            Professionnel polyvalent du numérique, je navigue entre UX/UI Design, développement Back-end et intégration Odoo.
+                            {t.about.bio.split('.')[0] + '.'}
                         </TextReveal>
                         <p className="opacity-80 text-lg">
-                            Basé à Yaoundé, je maîtrise les architectures microservices, le SEO, et la création d’expériences intuitives.
-                            Mon approche consiste à allier design, technicité et optimisation produit pour offrir des solutions digitales complètes et performantes.
+                            {t.about.bio.split('.').slice(1).join('.')}
                         </p>
                         <p className="opacity-80 text-lg italic border-l-2 border-accent pl-4">
-                            "Créatif, Déterminé, Passionné par la lecture et l'apprentissage continu."
+                            "{t.about.subtitle}"
                         </p>
 
                         <div className="mt-12 grid grid-cols-2 gap-8 text-sm font-mono border-t border-stone-200 dark:border-stone-800 pt-8">

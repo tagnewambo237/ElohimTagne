@@ -3,32 +3,34 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLanguage } from '@/context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const content = [
-    {
-        id: 1,
-        title: "Fusionner Design & Code.",
-        description: "Je ne me contente pas de coder, je sculpte des expériences. Mon profil hybride UX/UI & Dév permet une cohérence technique et visuelle sans faille.",
-        image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670"
-    },
-    {
-        id: 2,
-        title: "Architecture Robuste.",
-        description: "Spécialisé dans les microservices et l'ingénierie Odoo. Chaque ligne de code est pensée pour la scalabilité, la sécurité et la performance.",
-        image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2670"
-    },
-    {
-        id: 3,
-        title: "Innovation Constante.",
-        description: "Toujours à l'affût des technologies de demain (Next.js 15, AI Integration). Mon objectif : créer des standards, pas juste les suivre.",
-        image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2670"
-    }
-];
-
 export default function FeatureSticky() {
     const componentRef = useRef<HTMLDivElement>(null);
+    const { t } = useLanguage();
+
+    const content = [
+        {
+            id: 1,
+            title: t.features.f1_title,
+            description: t.features.f1_desc,
+            image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670"
+        },
+        {
+            id: 2,
+            title: t.features.f2_title,
+            description: t.features.f2_desc,
+            image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2670"
+        },
+        {
+            id: 3,
+            title: t.features.f3_title,
+            description: t.features.f3_desc,
+            image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2670"
+        }
+    ];
 
     useEffect(() => {
         const ctx = gsap.context(() => {

@@ -2,16 +2,17 @@
 
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Preloader() {
     const containerRef = useRef<HTMLDivElement>(null);
     const cupRef = useRef<SVGPathElement>(null);
     const espressoRef = useRef<SVGRectElement>(null);
-    const milkRef = useRef<SVGRectElement>(null);
     const foamRef = useRef<SVGRectElement>(null);
     const steamRef = useRef<SVGGElement>(null);
     const textRef = useRef<HTMLDivElement>(null);
     const [complete, setComplete] = useState(false);
+    const { t } = useLanguage();
 
     useEffect(() => {
         const tl = gsap.timeline({
@@ -25,27 +26,17 @@ export default function Preloader() {
             tl.to(cupRef.current, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.inOut' });
         }
 
-        // 2. Fill with espresso (dark layer at bottom)
+        // 2. Fill with espresso (double shot = plus foncé et plus intense)
         if (espressoRef.current) {
             gsap.set(espressoRef.current, { scaleY: 0 });
             tl.to(espressoRef.current, {
                 scaleY: 1,
-                duration: 0.6,
+                duration: 0.8,
                 ease: "power2.out",
             }, "-=0.5");
         }
 
-        // 3. Pour milk layer (lighter layer on top)
-        if (milkRef.current) {
-            gsap.set(milkRef.current, { scaleY: 0 });
-            tl.to(milkRef.current, {
-                scaleY: 1,
-                duration: 0.8,
-                ease: "power2.out",
-            }, "-=0.2");
-        }
-
-        // 4. Add foam on top
+        // 3. Add crema on top (mousse légère de l'expresso)
         if (foamRef.current) {
             gsap.set(foamRef.current, { scaleY: 0, opacity: 0 });
             tl.to(foamRef.current, {
@@ -56,7 +47,7 @@ export default function Preloader() {
             }, "-=0.3");
         }
 
-        // 5. Steam animation (continuous rising)
+        // 4. Steam animation (continuous rising)
         if (steamRef.current) {
             tl.fromTo(steamRef.current.children,
                 { y: 0, opacity: 0, scale: 0.8 },
@@ -74,15 +65,15 @@ export default function Preloader() {
             );
         }
 
-        // 6. Text Reveal
+        // 5. Text Reveal
         tl.fromTo(textRef.current,
             { opacity: 0, y: 20 },
             { opacity: 1, y: 0, duration: 0.5 },
             "-=1.2"
         );
 
-        // 7. Exit Animation
-        tl.to([cupRef.current, espressoRef.current, milkRef.current, foamRef.current, steamRef.current, textRef.current], {
+        // 6. Exit Animation
+        tl.to([cupRef.current, espressoRef.current, foamRef.current, steamRef.current, textRef.current], {
             scale: 1.05,
             opacity: 0,
             duration: 0.4,
@@ -122,26 +113,18 @@ export default function Preloader() {
 
                     {/* The Liquids */}
                     <g mask="url(#liquidMask)">
-                        {/* Espresso Base */}
+                        {/* Espresso Double Shot - Plus foncé et intense */}
                         <rect
                             ref={espressoRef}
                             x="20" y="35" width="60" height="60"
-                            fill="#6F4E37"
+                            fill="#3D2817"
                             style={{ transformBox: "fill-box", transformOrigin: "bottom" }}
                         />
-                        {/* Milk Layer */}
-                        <rect
-                            ref={milkRef}
-                            x="20" y="35" width="60" height="60"
-                            fill="#C0A080"
-                            className="opacity-50 mix-blend-screen"
-                            style={{ transformBox: "fill-box", transformOrigin: "bottom" }}
-                        />
-                        {/* Foam Top */}
+                        {/* Crema (mousse légère dorée du vrai expresso) */}
                         <rect
                             ref={foamRef}
-                            x="20" y="35" width="60" height="5"
-                            fill="#E6D2B5"
+                            x="20" y="35" width="60" height="3"
+                            fill="#C8A882"
                             style={{ transformBox: "fill-box", transformOrigin: "top" }}
                         />
                     </g>
@@ -158,10 +141,10 @@ export default function Preloader() {
             {/* Funny Message */}
             <div ref={textRef} className="text-center opacity-0 px-4">
                 <h2 className="text-xl md:text-2xl font-mono tracking-widest uppercase mb-2">
-                    Elohim <span className="italic text-[#6F4E37]">Expresso</span>
+                    Elohim <span className="italic text-[#3D2817] dark:text-[#C8A882]">Double Expresso</span>
                 </h2>
                 <p className="text-sm opacity-60 font-light">
-                    Compilation de caféine en code...
+                    {t.preloader.text}
                 </p>
             </div>
 

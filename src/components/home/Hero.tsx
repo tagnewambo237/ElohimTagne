@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import TextReveal from '@/components/ui/TextReveal';
 import MoodBadge from '@/components/ui/MoodBadge';
 import { Download } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,6 +14,7 @@ export default function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLDivElement>(null);
     const [showCoffee, setShowCoffee] = useState(false);
+    const { t } = useLanguage();
 
     const handleDownload = () => {
         setShowCoffee(true);
@@ -81,16 +83,16 @@ export default function Hero() {
 
                 {/* Nom */}
                 <h1 className="text-5xl md:text-8xl lg:text-9xl font-semibold tracking-tighter leading-[1.1] mb-6">
-                    <span className="inline-block text-gray-900 dark:text-white"><TextReveal delay={0.2}>Elohim</TextReveal></span>
+                    <span className="inline-block text-gray-900 dark:text-white"><TextReveal delay={0.2}>{t.hero.greeting}</TextReveal></span>
                     {' '}
-                    <span className="inline-block text-accent"><TextReveal delay={0.3}>TAGNE.</TextReveal></span>
+                    <span className="inline-block text-accent"><TextReveal delay={0.3}>{t.hero.surname}</TextReveal></span>
                 </h1>
 
                 {/* Sous-titre */}
                 <div className="mt-8 flex justify-center">
                     <div className="text-lg md:text-xl font-light text-gray-600 dark:text-gray-300 max-w-2xl leading-relaxed">
                         <TextReveal delay={0.6} duration={1}>
-                            Développeur Full-Stack & Designer UI/UX — Je crée des expériences digitales sur mesure.
+                            {t.hero.role}
                         </TextReveal>
                     </div>
                 </div>
@@ -102,14 +104,14 @@ export default function Hero() {
                     onClick={handleDownload}
                     className="mt-8 px-8 py-3 rounded-full border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 transition-all inline-flex items-center gap-3 text-sm tracking-widest uppercase font-medium group"
                 >
-                    <span>Télécharger CV</span>
+                    <span>{t.hero.downloadCv}</span>
                     <Download className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
                 </a>
             </div>
 
             {/* Scroll Indicator */}
             <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-gray-600 dark:text-white">
-                <span className="text-xs uppercase tracking-widest opacity-60">Défiler</span>
+                <span className="text-xs uppercase tracking-widest opacity-60">{t.hero.scroll}</span>
                 <div className="w-[1px] h-12 bg-gray-300 dark:bg-white/20 overflow-hidden">
                     <div className="w-full h-full bg-gray-600 dark:bg-white animate-scroll-down"></div>
                 </div>

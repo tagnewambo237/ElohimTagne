@@ -5,22 +5,24 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code2, Database, Layout, Smartphone, Globe, Cloud, Layers, Cpu, Server, Terminal, Figma, Github } from 'lucide-react';
 import AvailabilityStatus from '../ui/AvailabilityStatus';
+import { useLanguage } from '@/context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const skillData = [
-    { title: "Frontend", icon: Layout, desc: "React, Next.js, Tailwind", color: "bg-orange-100 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400" },
-    { title: "Backend", icon: Server, desc: "Node.js, Express, NestJS", color: "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400" },
-    { title: "Mobile", icon: Smartphone, desc: "Flutter, React Native, Ionic", color: "bg-rose-100 text-rose-600 dark:bg-rose-900/20 dark:text-rose-400" },
-    { title: "Design", icon: Figma, desc: "Figma, Adobe XD, UI/UX", color: "bg-violet-100 text-violet-600 dark:bg-violet-900/20 dark:text-violet-400" },
-    { title: "Database", icon: Database, desc: "MySQL, MongoDB, PostgreSQL", color: "bg-amber-100 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400" },
-    { title: "DevOps", icon: Cloud, desc: "Docker, AWS, CI/CD", color: "bg-sky-100 text-sky-600 dark:bg-sky-900/20 dark:text-sky-400" },
-    { title: "Tools", icon: Terminal, desc: "Git, VS Code, Postman", color: "bg-stone-100 text-stone-600 dark:bg-stone-900/20 dark:text-stone-400" },
-    { title: "CMS/ERP", icon: Layers, desc: "Odoo, WordPress", color: "bg-teal-100 text-teal-600 dark:bg-teal-900/20 dark:text-teal-400" },
-];
-
 export default function BentoSkills() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const { t } = useLanguage();
+
+    const skillData = [
+        { title: "Frontend", icon: Layout, desc: "React, Next.js, Tailwind", color: "bg-orange-100 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400" },
+        { title: "Backend", icon: Server, desc: "Node.js, Express, NestJS", color: "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400" },
+        { title: "Mobile", icon: Smartphone, desc: "Flutter, React Native, Ionic", color: "bg-rose-100 text-rose-600 dark:bg-rose-900/20 dark:text-rose-400" },
+        { title: "Design", icon: Figma, desc: "Figma, Adobe XD, UI/UX", color: "bg-violet-100 text-violet-600 dark:bg-violet-900/20 dark:text-violet-400" },
+        { title: "Database", icon: Database, desc: "MySQL, MongoDB, PostgreSQL", color: "bg-amber-100 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400" },
+        { title: "DevOps", icon: Cloud, desc: "Docker, AWS, CI/CD", color: "bg-sky-100 text-sky-600 dark:bg-sky-900/20 dark:text-sky-400" },
+        { title: "Tools", icon: Terminal, desc: "Git, VS Code, Postman", color: "bg-stone-100 text-stone-600 dark:bg-stone-900/20 dark:text-stone-400" },
+        { title: "CMS/ERP", icon: Layers, desc: "Odoo, WordPress", color: "bg-teal-100 text-teal-600 dark:bg-teal-900/20 dark:text-teal-400" },
+    ];
 
     useEffect(() => {
         const items = gsap.utils.toArray('.bento-item');
@@ -46,9 +48,9 @@ export default function BentoSkills() {
         <section ref={containerRef} className="py-32 px-6 md:px-12 bg-background relative z-10">
             <div className="max-w-7xl mx-auto">
                 <div className="mb-20 text-center md:text-left">
-                    <span className="text-sm font-mono uppercase tracking-widest opacity-60">Expertise</span>
+                    <span className="text-sm font-mono uppercase tracking-widest opacity-60">{t.skills.label}</span>
                     <h2 className="text-4xl md:text-6xl font-semibold mt-4 tracking-tight">
-                        Arsenal <span className="text-accent italic">Digital.</span>
+                        {t.skills.title}
                     </h2>
                 </div>
 
@@ -64,9 +66,9 @@ export default function BentoSkills() {
                             <Code2 size={120} />
                         </div>
                         <div className="relative z-10 h-full flex flex-col justify-end">
-                            <h3 className="text-3xl font-medium mb-2">Développement Fullstack</h3>
+                            <h3 className="text-3xl font-medium mb-2">{t.skills.cards.fullstack_title}</h3>
                             <p className="opacity-60 text-lg">
-                                Création d'applications scalables, du frontend pixel-perfect au backend robuste.
+                                {t.skills.cards.fullstack_desc}
                             </p>
                         </div>
                     </div>
@@ -90,8 +92,8 @@ export default function BentoSkills() {
                     {/* Wide Card */}
                     <div className="bento-item col-span-2 rounded-3xl p-8 bg-foreground text-background relative overflow-hidden flex items-center justify-between group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
                         <div className="relative z-10">
-                            <h3 className="text-2xl font-medium mb-1">Activité Github</h3>
-                            <p className="opacity-60">Contributeur Open Source</p>
+                            <h3 className="text-2xl font-medium mb-1">{t.skills.cards.github_title}</h3>
+                            <p className="opacity-60">{t.skills.cards.github_desc}</p>
                         </div>
                         <div className="relative z-10 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500">
                             <Github size={48} className="opacity-80" />

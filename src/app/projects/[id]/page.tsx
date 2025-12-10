@@ -8,18 +8,20 @@ import TextReveal from "@/components/ui/TextReveal";
 import Image from "next/image";
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function ProjectDetailsPage() {
     const params = useParams();
     const id = Array.isArray(params?.id) ? params.id[0] : params?.id;
     const project = projects.find(p => p.id === id);
+    const { t, language } = useLanguage();
 
     if (!project) {
         return (
             <main className="w-full min-h-screen flex items-center justify-center bg-background text-foreground">
                 <div className="text-center">
-                    <h1 className="text-4xl font-bold">Projet non trouvé</h1>
-                    <Link href="/projects" className="mt-4 inline-block underline">Retour aux projets</Link>
+                    <h1 className="text-4xl font-bold">{t.projects_page.notFound}</h1>
+                    <Link href="/projects" className="mt-4 inline-block underline">{t.projects_page.back}</Link>
                 </div>
             </main>
         );
@@ -45,7 +47,7 @@ export default function ProjectDetailsPage() {
                             <TextReveal className="text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tighter text-white mb-4">
                                 {project.title}
                             </TextReveal>
-                            <p className="text-xl md:text-2xl font-mono text-white/80">{project.category} • {project.year}</p>
+                            <p className="text-xl md:text-2xl font-mono text-white/80">{project.category[language]} • {project.year}</p>
                         </div>
                     </div>
                 </div>
@@ -53,14 +55,14 @@ export default function ProjectDetailsPage() {
                 {/* Content */}
                 <div className="max-w-7xl mx-auto px-6 md:px-12">
                     <Link href="/projects" className="inline-flex items-center gap-2 text-sm uppercase tracking-widest opacity-60 hover:opacity-100 mb-12 transition-opacity">
-                        <ArrowLeft size={16} /> Retour aux projets
+                        <ArrowLeft size={16} /> {t.projects_page.back}
                     </Link>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
                         <div className="md:col-span-2">
-                            <h2 className="text-2xl md:text-3xl font-medium mb-8">Présentation</h2>
+                            <h2 className="text-2xl md:text-3xl font-medium mb-8">{t.projects_page.overview}</h2>
                             <p className="text-lg md:text-xl leading-relaxed opacity-80 mb-12">
-                                {project.description}
+                                {project.description[language]}
                             </p>
                             {/* <p className="text-lg md:text-xl leading-relaxed opacity-80">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -81,13 +83,13 @@ export default function ProjectDetailsPage() {
                             </div>
 
                             <div className="border-t border-white/10 pt-8">
-                                <h3 className="text-sm uppercase tracking-widest opacity-50 mb-4">Rôle</h3>
+                                <h3 className="text-sm uppercase tracking-widest opacity-50 mb-4">{t.projects_page.role}</h3>
                                 <p className="text-lg">Lead Developer & Designer</p>
                             </div>
 
                             <div className="mt-12">
                                 <a href={project.link} className="inline-block bg-foreground text-background px-8 py-4 rounded-full font-medium hover:scale-105 transition-transform">
-                                    Voir le site ↗
+                                    {t.projects_page.liveSite} ↗
                                 </a>
                             </div>
                         </div>

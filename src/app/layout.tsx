@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import GradientBackground from "@/components/ui/GradientBackground";
 import Noise from "@/components/ui/Noise";
 import CatFloatingButton from "@/components/ui/CatFloatingButton";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const inter = Inter({
   variable: "--font-geist-sans", // Keeping variable name for compatibility with existing CSS or changing it. Let's keep it consistent with globals.css
@@ -37,13 +38,15 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground overflow-x-hidden`}
       >
         <ThemeProvider defaultTheme="system" storageKey="portfolio-theme">
-          <SmoothScroll>
-            {children}
-            <CustomCursor />
-            <GradientBackground />
-            <Noise />
-            <CatFloatingButton />
-          </SmoothScroll>
+          <LanguageProvider>
+            <SmoothScroll>
+              {children}
+              <CustomCursor />
+              <GradientBackground />
+              <Noise />
+              <CatFloatingButton />
+            </SmoothScroll>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

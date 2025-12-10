@@ -6,12 +6,14 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { projects } from '@/data/projects';
 import Image from 'next/image';
+import { useLanguage } from '@/context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HorizontalGallery() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const sliderRef = useRef<HTMLDivElement>(null);
+    const { t, language } = useLanguage();
 
     useEffect(() => {
         const slider = sliderRef.current;
@@ -49,8 +51,8 @@ export default function HorizontalGallery() {
         <section id="work" ref={sectionRef} className="h-screen bg-gray-900 dark:bg-gray-950 text-white overflow-hidden relative flex items-center">
 
             <div className="absolute top-12 left-6 md:left-12 z-10">
-                <span className="text-sm font-mono uppercase tracking-widest opacity-60">Travaux Sélectionnés</span>
-                <h2 className="text-4xl font-semibold mt-2">Projets Récents.</h2>
+                <span className="text-sm font-mono uppercase tracking-widest opacity-60">{t.gallery.label}</span>
+                <h2 className="text-4xl font-semibold mt-2">{t.gallery.title}</h2>
             </div>
 
             <div ref={sliderRef} className="flex gap-16 pl-[10vw] pr-12 w-fit">
@@ -64,7 +66,7 @@ export default function HorizontalGallery() {
                         />
                         <div className="absolute bottom-0 left-0 p-8 w-full bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500">
                             <h3 className="text-3xl font-medium text-white mb-1">{work.title}</h3>
-                            <p className="font-mono text-sm text-gray-400">{work.category}</p>
+                            <p className="font-mono text-sm text-gray-400">{work.category[language]}</p>
                         </div>
                     </Link>
                 ))}

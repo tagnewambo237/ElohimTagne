@@ -46,7 +46,7 @@ export default function TextReveal({ children, className, delay = 0, duration = 
         <div ref={containerRef} className={clsx("leading-tight", className)}>
             {words.map((word, i) => (
                 <span key={i} className="inline-block overflow-hidden align-top mr-[0.25em] last:mr-0">
-                    <span className="word inline-block transform translate-y-full opacity-0">
+                    <span className="word inline-block transform translate-y-full opacity-0 text-inherit">
                         {word}
                     </span>
                 </span>

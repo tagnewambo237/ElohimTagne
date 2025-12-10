@@ -7,8 +7,11 @@ import { projects } from "@/data/projects";
 import Link from "next/link";
 import Image from "next/image";
 import CoffeeAccent from "@/components/ui/CoffeeAccent";
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function ProjectsPage() {
+    const { t, language } = useLanguage();
+
     return (
         <main className="w-full min-h-screen bg-background text-foreground">
             <Header />
@@ -16,9 +19,9 @@ export default function ProjectsPage() {
             <section className="pt-48 px-6 md:px-12 max-w-7xl mx-auto min-h-screen">
                 <div className="mb-24 flex flex-col md:flex-row justify-between items-end gap-8">
                     <div>
-                        <span className="font-mono text-sm tracking-widest uppercase opacity-60">Travaux Sélectionnés (2022-2025)</span>
+                        <span className="font-mono text-sm tracking-widest uppercase opacity-60">{t.projects_page.label}</span>
                         <TextReveal className="text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tighter mt-4">
-                            Tous les Projets.
+                            {t.projects_page.title}
                         </TextReveal>
                     </div>
                     <div className="pb-4">
@@ -46,10 +49,10 @@ export default function ProjectsPage() {
                             <div className="flex justify-between items-start border-b border-white/10 pb-4 group-hover:border-white/50 transition-colors">
                                 <div>
                                     <h3 className="text-3xl font-medium mb-1">{project.title}</h3>
-                                    <p className="text-sm font-mono opacity-60">{project.category}</p>
+                                    <p className="text-sm font-mono opacity-60">{project.category[language]}</p>
                                 </div>
                                 <span className="opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 duration-300">
-                                    Voir le Projet ↗
+                                    {t.projects_page.view} ↗
                                 </span>
                             </div>
                         </Link>
