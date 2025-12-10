@@ -7,6 +7,8 @@ import { MessageCircle } from 'lucide-react';
 export default function CatFloatingButton() {
     const catRef = useRef<HTMLDivElement>(null);
     const pulseRef = useRef<HTMLDivElement>(null);
+    const eyesRef = useRef<SVGGElement>(null);
+    const pawRef = useRef<SVGPathElement>(null);
     const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
@@ -31,6 +33,22 @@ export default function CatFloatingButton() {
                 repeatDelay: 4 // Pulse every 4 seconds
             }
         );
+
+        // Blinking Eyes Animation
+        if (eyesRef.current) {
+            const blinkTl = gsap.timeline({ repeat: -1, repeatDelay: 2 }); // Fixed interval
+            blinkTl.to(eyesRef.current, { scaleY: 0.1, duration: 0.1, transformOrigin: "center" })
+                .to(eyesRef.current, { scaleY: 1, duration: 0.1 });
+        }
+
+        // Paw Wave Animation
+        if (pawRef.current) {
+            const waveTl = gsap.timeline({ repeat: -1, repeatDelay: 1 }); // Waves frequently
+            waveTl.to(pawRef.current, { rotation: 20, duration: 0.2, transformOrigin: "bottom right" })
+                .to(pawRef.current, { rotation: -10, duration: 0.2 })
+                .to(pawRef.current, { rotation: 10, duration: 0.2 })
+                .to(pawRef.current, { rotation: 0, duration: 0.2 });
+        }
     }, []);
 
     const whatsappUrl = "https://wa.me/237694656790";
@@ -60,17 +78,27 @@ export default function CatFloatingButton() {
                 <div ref={catRef} className="w-16 h-16 bg-foreground text-background border-2 border-background/20 rounded-full flex items-center justify-center shadow-2xl relative overflow-hidden transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
 
                     {/* Cute Cat SVG */}
-                    <svg viewBox="0 0 100 100" className="w-10 h-10 fill-background absolute bottom-0 translate-y-1">
+                    <svg viewBox="0 0 100 100" className="w-10 h-10 fill-background absolute bottom-0 translate-y-1 overflow-visible">
                         <path d="M50 30 C30 30 15 45 15 65 C15 85 30 95 50 95 C70 95 85 85 85 65 C85 45 70 30 50 30 Z" />
                         <path d="M25 40 L15 15 L45 35 Z" />
                         <path d="M75 40 L85 15 L55 35 Z" />
 
-                        {/* Eyes - Reverse color (Foreground) to show up on the cat (Background color) */}
-                        <circle cx="35" cy="55" r="5" className="fill-foreground" />
-                        <circle cx="65" cy="55" r="5" className="fill-foreground" />
+                        {/* Eyes Group for Blinking */}
+                        <g ref={eyesRef}>
+                            <circle cx="35" cy="55" r="5" className="fill-foreground" />
+                            <circle cx="65" cy="55" r="5" className="fill-foreground" />
+                        </g>
 
                         {/* Nose */}
                         <polygon points="45,68 55,68 50,75" fill="pink" />
+
+                        {/* Waving Paw */}
+                        <path
+                            ref={pawRef}
+                            d="M80 85 Q85 75 75 75 Q65 75 70 85 Z"
+                            className="fill-background stroke-foreground stroke-1"
+                            style={{ transformOrigin: "bottom right" }}
+                        />
                     </svg>
 
                     {/* Notification Icon */}

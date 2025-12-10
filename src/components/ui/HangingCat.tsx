@@ -6,6 +6,9 @@ import gsap from 'gsap';
 export default function HangingCat() {
     const catRef = useRef<HTMLDivElement>(null);
     const tailRef = useRef<SVGPathElement>(null);
+    const leftEyeRef = useRef<SVGEllipseElement>(null);
+    const rightEyeRef = useRef<SVGEllipseElement>(null);
+    const leftPawRef = useRef<SVGGElement>(null);
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
@@ -21,6 +24,138 @@ export default function HangingCat() {
             });
         }
 
+        // Eye Blinking Animation
+        const blink = () => {
+            if (leftEyeRef.current && rightEyeRef.current) {
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        // Random delay between blinks (2-4 seconds)
+                        gsap.delayedCall(gsap.utils.random(2, 4), blink);
+                    }
+                });
+
+                tl.to([leftEyeRef.current, rightEyeRef.current], {
+                    attr: { ry: 0.5 },
+                    duration: 0.1,
+                    ease: "power2.in"
+                })
+                .to([leftEyeRef.current, rightEyeRef.current], {
+                    attr: { ry: 5 },
+                    duration: 0.1,
+                    ease: "power2.out"
+                });
+            }
+        };
+
+        // Start blinking after 1 second
+        gsap.delayedCall(1, blink);
+
+        // Paw Wave Animation with body swing (physics!)
+        const wave = () => {
+            if (leftPawRef.current && catRef.current) {
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        // Random delay between waves (4-8 seconds)
+                        gsap.delayedCall(gsap.utils.random(4, 8), wave);
+                    }
+                });
+
+                // Le corps se balance à cause du mouvement de la patte (action-réaction)
+                // La patte se détache du bouton et bouge de gauche à droite horizontalement
+
+                // La patte se détache légèrement vers le bas
+                tl.to(leftPawRef.current, {
+                    y: 8,
+                    duration: 0.2,
+                    ease: "power2.out"
+                }, 0)
+
+                // Mouvement vers la gauche
+                .to(catRef.current, {
+                    rotation: 6,
+                    transformOrigin: "center top",
+                    duration: 0.3,
+                    ease: "power2.out"
+                })
+                .to(leftPawRef.current, {
+                    x: -15,
+                    y: 12,
+                    duration: 0.3,
+                    ease: "power2.out"
+                }, "<")
+
+                // Premier mouvement de coucou vers la droite
+                .to(catRef.current, {
+                    rotation: -6,
+                    duration: 0.25,
+                    ease: "power2.inOut"
+                })
+                .to(leftPawRef.current, {
+                    x: 15,
+                    y: 12,
+                    duration: 0.25,
+                    ease: "power2.inOut"
+                }, "<")
+
+                // Retour vers la gauche
+                .to(catRef.current, {
+                    rotation: 6,
+                    duration: 0.25,
+                    ease: "power2.inOut"
+                })
+                .to(leftPawRef.current, {
+                    x: -15,
+                    y: 12,
+                    duration: 0.25,
+                    ease: "power2.inOut"
+                }, "<")
+
+                // Vers la droite
+                .to(catRef.current, {
+                    rotation: -6,
+                    duration: 0.25,
+                    ease: "power2.inOut"
+                })
+                .to(leftPawRef.current, {
+                    x: 15,
+                    y: 12,
+                    duration: 0.25,
+                    ease: "power2.inOut"
+                }, "<")
+
+                // Retour vers la gauche
+                .to(catRef.current, {
+                    rotation: 6,
+                    duration: 0.25,
+                    ease: "power2.inOut"
+                })
+                .to(leftPawRef.current, {
+                    x: -15,
+                    y: 12,
+                    duration: 0.25,
+                    ease: "power2.inOut"
+                }, "<")
+
+                // Position normale - le chat se stabilise
+                .to(catRef.current, {
+                    rotation: 0,
+                    duration: 0.5,
+                    ease: "elastic.out(1, 0.3)"
+                })
+                .to(leftPawRef.current, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.5,
+                    ease: "elastic.out(1, 0.3)"
+                }, "<");
+            }
+        };
+
+        // Start waving after 2 seconds (pour voir plus vite)
+        gsap.delayedCall(2, wave);
+    }, []);
+
+    useEffect(() => {
         const handleScroll = () => {
             const scrollY = window.scrollY;
 
@@ -61,10 +196,12 @@ export default function HangingCat() {
             <svg viewBox="0 0 100 140" className="w-full h-full drop-shadow-lg">
                 {/* Paws holding on top */}
                 <g className="fill-stone-800 dark:fill-stone-200">
-                    {/* Left Paw */}
-                    <ellipse cx="32" cy="8" rx="8" ry="10" />
-                    <ellipse cx="30" cy="12" rx="3" ry="3" fill="currentColor" opacity="0.3" />
-                    <ellipse cx="34" cy="12" rx="3" ry="3" fill="currentColor" opacity="0.3" />
+                    {/* Left Paw - with wave animation */}
+                    <g ref={leftPawRef}>
+                        <ellipse cx="32" cy="8" rx="8" ry="10" />
+                        <ellipse cx="30" cy="12" rx="3" ry="3" fill="currentColor" opacity="0.3" />
+                        <ellipse cx="34" cy="12" rx="3" ry="3" fill="currentColor" opacity="0.3" />
+                    </g>
 
                     {/* Right Paw */}
                     <ellipse cx="68" cy="8" rx="8" ry="10" />
@@ -100,8 +237,8 @@ export default function HangingCat() {
                 {/* Cute Face */}
                 <g>
                     {/* Big adorable eyes */}
-                    <ellipse cx="42" cy="42" rx="4" ry="5" fill="white" className="dark:fill-stone-900" />
-                    <ellipse cx="58" cy="42" rx="4" ry="5" fill="white" className="dark:fill-stone-900" />
+                    <ellipse ref={leftEyeRef} cx="42" cy="42" rx="4" ry="5" fill="white" className="dark:fill-stone-900" />
+                    <ellipse ref={rightEyeRef} cx="58" cy="42" rx="4" ry="5" fill="white" className="dark:fill-stone-900" />
 
                     {/* Eye sparkles */}
                     <circle cx="43" cy="41" r="1.5" fill="white" className="dark:fill-stone-800" />

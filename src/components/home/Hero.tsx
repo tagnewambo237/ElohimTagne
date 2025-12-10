@@ -1,16 +1,23 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import TextReveal from '@/components/ui/TextReveal';
 import MoodBadge from '@/components/ui/MoodBadge';
+import { Download } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLDivElement>(null);
+    const [showCoffee, setShowCoffee] = useState(false);
+
+    const handleDownload = () => {
+        setShowCoffee(true);
+        setTimeout(() => setShowCoffee(false), 3000);
+    };
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -87,6 +94,17 @@ export default function Hero() {
                         </TextReveal>
                     </div>
                 </div>
+
+                {/* CV Button */}
+                <a
+                    href="/cv/CV_2025-08-27_Elohim Junior_TAGNE WAMBO.pdf"
+                    download="CV_Elohim_TAGNE.pdf"
+                    onClick={handleDownload}
+                    className="mt-8 px-8 py-3 rounded-full border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 transition-all inline-flex items-center gap-3 text-sm tracking-widest uppercase font-medium group"
+                >
+                    <span>Télécharger CV</span>
+                    <Download className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
+                </a>
             </div>
 
             {/* Scroll Indicator */}
@@ -96,6 +114,16 @@ export default function Hero() {
                     <div className="w-full h-full bg-gray-600 dark:bg-white animate-scroll-down"></div>
                 </div>
             </div>
+
+            {/* Subtle Coffee Toast */}
+            {showCoffee && (
+                <div className="fixed bottom-10 left-10 z-[9999] pointer-events-none flex flex-col items-center animate-bounce">
+                    <span className="text-4xl filter drop-shadow-lg">☕️</span>
+                    <span className="mt-2 bg-white dark:bg-stone-900 px-3 py-1 rounded-lg shadow-xl text-xs font-mono border border-gray-200 dark:border-white/10 text-stone-600 dark:text-stone-300 whitespace-nowrap">
+                        Merci pour l'intérêt !
+                    </span>
+                </div>
+            )}
         </section>
     );
 }
