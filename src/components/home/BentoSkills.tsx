@@ -14,9 +14,9 @@ export default function BentoSkills() {
     const { t } = useLanguage();
 
     const skillData = [
-        { title: "Frontend", icon: Layout, desc: "React, Next.js, Tailwind", color: "bg-orange-100 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400" },
+        { title: "Frontend", icon: Layout, desc: "Angular, React, Next.js, Tailwind", color: "bg-orange-100 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400" },
         { title: "Backend", icon: Server, desc: "Node.js, Express, NestJS", color: "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400" },
-        { title: "Mobile", icon: Smartphone, desc: "Flutter, React Native, Ionic", color: "bg-rose-100 text-rose-600 dark:bg-rose-900/20 dark:text-rose-400" },
+        { title: "Mobile", icon: Smartphone, desc: "Flutter, Ionic", color: "bg-rose-100 text-rose-600 dark:bg-rose-900/20 dark:text-rose-400" },
         { title: "Design", icon: Figma, desc: "Figma, Adobe XD, UI/UX", color: "bg-violet-100 text-violet-600 dark:bg-violet-900/20 dark:text-violet-400" },
         { title: "Database", icon: Database, desc: "MySQL, MongoDB, PostgreSQL", color: "bg-amber-100 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400" },
         { title: "DevOps", icon: Cloud, desc: "Docker, AWS, CI/CD", color: "bg-sky-100 text-sky-600 dark:bg-sky-900/20 dark:text-sky-400" },
