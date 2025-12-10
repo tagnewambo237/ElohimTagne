@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import TextReveal from '@/components/ui/TextReveal';
+import MoodBadge from '@/components/ui/MoodBadge';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,34 +13,34 @@ export default function Hero() {
     const imageRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        // Image/Visual Reveal
-        gsap.fromTo(imageRef.current,
-            { scale: 1.2, opacity: 0 },
-            {
-                scale: 1,
-                opacity: 1,
-                duration: 1.5,
-                ease: 'power2.out'
+        const ctx = gsap.context(() => {
+            // Image/Visual Reveal
+            gsap.fromTo(imageRef.current,
+                { scale: 1.2, opacity: 0 },
+                {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 1.5,
+                    ease: 'power2.out'
+                }
+            );
+
+            // Parallax on Scroll for background
+            if (imageRef.current) {
+                gsap.to(imageRef.current, {
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                    y: 100,
+                    opacity: 0.5,
+                });
             }
-        );
+        }, containerRef);
 
-        // Parallax on Scroll for background
-        if (imageRef.current) {
-            gsap.to(imageRef.current, {
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true,
-                },
-                y: 100,
-                opacity: 0.5,
-            });
-        }
-
-        return () => {
-            ScrollTrigger.getAll().forEach(t => t.kill());
-        };
+        return () => ctx.revert();
     }, []);
 
     return (
@@ -51,32 +52,41 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
             </div>
 
-            <div className="z-10 text-center max-w-5xl mx-auto mix-blend-difference text-white">
-                <div className="mb-2">
-                    <h1 className="text-5xl md:text-8xl lg:text-9xl font-semibold tracking-tighter leading-[1.1]">
-                        <TextReveal delay={0.2}>Crafting Digital</TextReveal>
-                    </h1>
-                </div>
-                <div className="mb-6">
-                    <h1 className="text-5xl md:text-8xl lg:text-9xl font-semibold tracking-tighter leading-[1.1] text-accent/90">
-                        <TextReveal delay={0.4}>Experiences.</TextReveal>
-                    </h1>
+            <div className="z-10 text-center max-w-5xl mx-auto">
+                {/* Photo */}
+                <div className="mb-6 flex justify-center">
+                    <div className="w-28 h-28 md:w-36 md:h-36 relative border-2 border-gray-200 dark:border-white/20 shadow-2xl rounded-full">
+                        <img
+                            src="/Profile.png"
+                            alt="Elohim TAGNE"
+                            className="w-full h-full object-cover object-top rounded-full"
+                        />
+                        <MoodBadge />
+                    </div>
                 </div>
 
+                {/* Nom */}
+                <h1 className="text-5xl md:text-8xl lg:text-9xl font-semibold tracking-tighter leading-[1.1] mb-6">
+                    <span className="inline-block text-gray-900 dark:text-white"><TextReveal delay={0.2}>Elohim</TextReveal></span>
+                    {' '}
+                    <span className="inline-block text-accent"><TextReveal delay={0.3}>TAGNE.</TextReveal></span>
+                </h1>
+
+                {/* Sous-titre */}
                 <div className="mt-8 flex justify-center">
-                    <div className="text-lg md:text-xl font-light text-gray-300 max-w-2xl leading-relaxed">
+                    <div className="text-lg md:text-xl font-light text-gray-600 dark:text-gray-300 max-w-2xl leading-relaxed">
                         <TextReveal delay={0.6} duration={1}>
-                            Merging design aesthetics with technical precision to create immersive web applications.
+                            Développeur Full-Stack & Designer UI/UX — Je crée des expériences digitales sur mesure.
                         </TextReveal>
                     </div>
                 </div>
             </div>
 
             {/* Scroll Indicator */}
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 mix-blend-difference text-white">
+            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-gray-600 dark:text-white">
                 <span className="text-xs uppercase tracking-widest opacity-60">Scroll</span>
-                <div className="w-[1px] h-12 bg-white/20 overflow-hidden">
-                    <div className="w-full h-full bg-white animate-scroll-down"></div>
+                <div className="w-[1px] h-12 bg-gray-300 dark:bg-white/20 overflow-hidden">
+                    <div className="w-full h-full bg-gray-600 dark:bg-white animate-scroll-down"></div>
                 </div>
             </div>
         </section>

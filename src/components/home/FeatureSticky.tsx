@@ -53,15 +53,15 @@ export default function FeatureSticky() {
     }, []);
 
     return (
-        <section className="relative bg-foreground text-background">
+        <section className="relative bg-gray-900 dark:bg-gray-950 text-white">
             <div ref={componentRef} className="h-screen w-full flex items-center overflow-hidden">
                 <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-16 px-6 md:px-12 h-[80vh] items-center">
 
                     {/* Left Col: Text Mask */}
-                    <div className="h-64 overflow-hidden relative border-l-2 border-background/20 pl-8">
+                    <div className="h-64 overflow-hidden relative border-l-2 border-white/20 pl-8">
                         <div className="h-full">
                             {content.map((item) => (
-                                <div key={item.id} className="feature-text-block h-64 flex flex-col justify-center">
+                                <div key={item.id} className="feature-text-block h-64 flex flex-col justify-center mt-2">
                                     <h3 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 leading-tight">
                                         {item.title}
                                     </h3>

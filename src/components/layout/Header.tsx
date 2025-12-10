@@ -8,10 +8,9 @@ import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import Magnetic from "@/components/ui/Magnetic";
 
 const navItems = [
-    { name: 'Work', href: '#work' },
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Projects', href: '/projects' },
+    { name: 'About', href: '/about' },
+    { name: 'Home', href: '/' },
 ];
 
 export default function Header() {
@@ -61,7 +60,7 @@ export default function Header() {
                     ref={navRef}
                     className="pointer-events-auto bg-white/10 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl shadow-black/5"
                 >
-                    <Link href="/" className="font-semibold tracking-tight text-foreground/90 hover:text-foreground transition-colors mix-blend-difference">
+                    <Link href="/" className="font-semibold tracking-tight text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
                         ELOHIM<span className="text-accent text-xs align-top">®</span>
                     </Link>
 

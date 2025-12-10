@@ -4,6 +4,7 @@ import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code2, Database, Layout, Smartphone, Globe, Cloud, Layers, Cpu, Server, Terminal, Figma, Github } from 'lucide-react';
+import AvailabilityStatus from '../ui/AvailabilityStatus';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -92,6 +93,11 @@ export default function BentoSkills() {
                         </div>
                         {/* Decorative Background */}
                         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+                    </div>
+
+                    {/* Availability/Locations Card */}
+                    <div className="bento-item col-span-2 rounded-3xl p-6 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-accent/30 transition-colors flex items-center justify-center">
+                        <AvailabilityStatus />
                     </div>
 
                 </div>

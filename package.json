@@ -9,29 +9,30 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@react-three/drei": "^9.0.0",
+    "@react-three/fiber": "^9.0.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.13.0",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.18",
+    "lucide-react": "^0.468.0",
     "next": "16.0.8",
     "react": "19.2.1",
     "react-dom": "19.2.1",
-    "gsap": "^3.12.5",
-    "lenis": "^1.1.18",
-    "three": "^0.170.0",
-    "framer-motion": "^11.13.0",
-    "@react-three/fiber": "^9.0.0",
-    "@react-three/drei": "^9.0.0",
-    "clsx": "^2.1.1",
+    "split-type": "^0.3.4",
     "tailwind-merge": "^2.5.5",
-    "lucide-react": "^0.468.0"
+    "three": "^0.170.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.170.0",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.8",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "@types/three": "^0.170.0"
+    "typescript": "^5"
   }
 }

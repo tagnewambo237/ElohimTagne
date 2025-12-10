@@ -48,5 +48,5 @@ export default function Magnetic({ children, strength = 0.5 }: MagneticProps) {
         };
     }, [strength]);
 
-    return cloneElement(children, { ref, 'data-magnetic': 'true' });
+    return cloneElement(children, { ref, 'data-magnetic': 'true' } as any) ;
 }

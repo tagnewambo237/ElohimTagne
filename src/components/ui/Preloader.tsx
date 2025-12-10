@@ -5,8 +5,12 @@ import gsap from 'gsap';
 
 export default function Preloader() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const svgRef = useRef<SVGSVGElement>(null);
-    const circleRef = useRef<SVGCircleElement>(null);
+    const cupRef = useRef<SVGPathElement>(null);
+    const espressoRef = useRef<SVGRectElement>(null);
+    const milkRef = useRef<SVGRectElement>(null);
+    const foamRef = useRef<SVGRectElement>(null);
+    const steamRef = useRef<SVGGElement>(null);
+    const textRef = useRef<HTMLDivElement>(null);
     const [complete, setComplete] = useState(false);
 
     useEffect(() => {
@@ -14,62 +18,153 @@ export default function Preloader() {
             onComplete: () => setComplete(true)
         });
 
-        // Initial state
-        gsap.set(containerRef.current, { opacity: 1 });
-
-        // Animate circle drawing
-        if (circleRef.current) {
-            const length = circleRef.current.getTotalLength();
-            gsap.set(circleRef.current, { strokeDasharray: length, strokeDashoffset: length });
-
-            tl.to(circleRef.current, {
-                strokeDashoffset: 0,
-                duration: 1.5,
-                ease: 'power2.inOut'
-            });
+        // 1. Draw the Cup outline
+        if (cupRef.current) {
+            const length = cupRef.current.getTotalLength();
+            gsap.set(cupRef.current, { strokeDasharray: length, strokeDashoffset: length });
+            tl.to(cupRef.current, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.inOut' });
         }
 
-        // Expand and fade out
-        tl.to(svgRef.current, {
-            scale: 1.5,
+        // 2. Fill with espresso (dark layer at bottom)
+        if (espressoRef.current) {
+            gsap.set(espressoRef.current, { scaleY: 0 });
+            tl.to(espressoRef.current, {
+                scaleY: 1,
+                duration: 0.6,
+                ease: "power2.out",
+            }, "-=0.5");
+        }
+
+        // 3. Pour milk layer (lighter layer on top)
+        if (milkRef.current) {
+            gsap.set(milkRef.current, { scaleY: 0 });
+            tl.to(milkRef.current, {
+                scaleY: 1,
+                duration: 0.8,
+                ease: "power2.out",
+            }, "-=0.2");
+        }
+
+        // 4. Add foam on top
+        if (foamRef.current) {
+            gsap.set(foamRef.current, { scaleY: 0, opacity: 0 });
+            tl.to(foamRef.current, {
+                scaleY: 1,
+                opacity: 1,
+                duration: 0.5,
+                ease: "bounce.out",
+            }, "-=0.3");
+        }
+
+        // 5. Steam animation (continuous rising)
+        if (steamRef.current) {
+            tl.fromTo(steamRef.current.children,
+                { y: 0, opacity: 0, scale: 0.8 },
+                {
+                    y: -30,
+                    opacity: 0.6,
+                    scale: 1.2,
+                    duration: 1.0,
+                    stagger: 0.1,
+                    ease: "power1.out",
+                    repeat: 1,
+                    repeatDelay: 0.1
+                },
+                "-=0.5"
+            );
+        }
+
+        // 6. Text Reveal
+        tl.fromTo(textRef.current,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.5 },
+            "-=1.2"
+        );
+
+        // 7. Exit Animation
+        tl.to([cupRef.current, espressoRef.current, milkRef.current, foamRef.current, steamRef.current, textRef.current], {
+            scale: 1.05,
             opacity: 0,
-            duration: 0.8,
-            ease: 'power3.in',
-            delay: 0.2
-        }, "-=0.2");
+            duration: 0.4,
+            delay: 0.2,
+            ease: 'power2.in'
+        });
 
         tl.to(containerRef.current, {
             yPercent: -100,
-            duration: 0.8,
-            ease: 'power4.inOut'
-        }, "-=0.6");
+            duration: 0.6,
+            ease: 'power3.inOut'
+        });
 
     }, []);
 
     if (complete) return null;
 
     return (
-        <div ref={containerRef} className="fixed inset-0 z-[100] bg-background flex items-center justify-center">
-            <svg ref={svgRef} className="w-32 h-32 md:w-48 md:h-48" viewBox="0 0 100 100">
-                <circle
-                    ref={circleRef}
-                    cx="50"
-                    cy="50"
-                    r="40"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1"
-                    className="text-foreground"
-                />
-                {/* Decorative inner lines representing 'generative' art */}
-                <path
-                    className="opacity-0 animate-fade-in"
-                    d="M50 10 L50 90 M10 50 L90 50 M22 22 L78 78 M78 22 L22 78"
-                    stroke="currentColor"
-                    strokeWidth="0.5"
-                    style={{ animation: 'fadeIn 1s ease-out 0.5s forwards' }}
-                />
-            </svg>
+        <div ref={containerRef} className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center text-foreground overflow-hidden">
+
+            <div className="relative w-48 h-48 mb-8">
+                <svg className="w-full h-full" viewBox="0 0 100 100" overflow="visible">
+                    {/* Cup Outline */}
+                    <path
+                        ref={cupRef}
+                        d="M25 35 L30 80 Q32 90 50 90 Q68 90 70 80 L75 35 M75 45 Q85 45 85 55 Q85 65 73 65"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                    />
+
+                    {/* Liquid Mask Container */}
+                    <mask id="liquidMask">
+                        <path d="M27 35 L30 80 Q32 90 50 90 Q68 90 70 80 L73 35 Z" fill="white" />
+                    </mask>
+
+                    {/* The Liquids */}
+                    <g mask="url(#liquidMask)">
+                        {/* Espresso Base */}
+                        <rect
+                            ref={espressoRef}
+                            x="20" y="35" width="60" height="60"
+                            fill="#6F4E37"
+                            style={{ transformBox: "fill-box", transformOrigin: "bottom" }}
+                        />
+                        {/* Milk Layer */}
+                        <rect
+                            ref={milkRef}
+                            x="20" y="35" width="60" height="60"
+                            fill="#C0A080"
+                            className="opacity-50 mix-blend-screen"
+                            style={{ transformBox: "fill-box", transformOrigin: "bottom" }}
+                        />
+                        {/* Foam Top */}
+                        <rect
+                            ref={foamRef}
+                            x="20" y="35" width="60" height="5"
+                            fill="#E6D2B5"
+                            style={{ transformBox: "fill-box", transformOrigin: "top" }}
+                        />
+                    </g>
+
+                    {/* Steam */}
+                    <g ref={steamRef} className="opacity-0">
+                        <path d="M35 25 Q35 15 40 10" stroke="#6F4E37" strokeWidth="2" fill="none" strokeLinecap="round" />
+                        <path d="M50 20 Q50 10 55 5" stroke="#6F4E37" strokeWidth="2" fill="none" strokeLinecap="round" />
+                        <path d="M65 25 Q65 15 70 10" stroke="#6F4E37" strokeWidth="2" fill="none" strokeLinecap="round" />
+                    </g>
+                </svg>
+            </div>
+
+            {/* Funny Message */}
+            <div ref={textRef} className="text-center opacity-0 px-4">
+                <h2 className="text-xl md:text-2xl font-mono tracking-widest uppercase mb-2">
+                    Elohim <span className="italic text-[#6F4E37]">Expresso</span>
+                </h2>
+                <p className="text-sm opacity-60 font-light">
+                    Compiling caffeine into code...
+                </p>
+            </div>
+
         </div>
     );
 }

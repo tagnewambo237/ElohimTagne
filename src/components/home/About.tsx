@@ -67,7 +67,7 @@ export default function About() {
                 {/* Right: Image / Visual */}
                 <div className="md:col-span-12 lg:col-span-4 relative group">
                     <ParallaxImage
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2574&auto=format&fit=crop"
+                        src="/Profile.png?q=80&w=2574&auto=format&fit=crop"
                         alt="Elohim Junior"
                         className="rounded-2xl aspect-[4/5] bg-gray-200 dark:bg-gray-800"
                         speed={1.1} // Subtle parallax

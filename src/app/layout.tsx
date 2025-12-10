@@ -4,7 +4,9 @@ import "./globals.css";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import CustomCursor from "@/components/ui/CustomCursor";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
+import GradientBackground from "@/components/ui/GradientBackground";
 import Noise from "@/components/ui/Noise";
+import CatFloatingButton from "@/components/ui/CatFloatingButton";
 
 const inter = Inter({
   variable: "--font-geist-sans", // Keeping variable name for compatibility with existing CSS or changing it. Let's keep it consistent with globals.css
@@ -38,7 +40,9 @@ export default function RootLayout({
           <SmoothScroll>
             {children}
             <CustomCursor />
+            <GradientBackground />
             <Noise />
+            <CatFloatingButton />
           </SmoothScroll>
         </ThemeProvider>
       </body>
