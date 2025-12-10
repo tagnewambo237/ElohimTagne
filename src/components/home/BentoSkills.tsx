@@ -9,14 +9,14 @@ import AvailabilityStatus from '../ui/AvailabilityStatus';
 gsap.registerPlugin(ScrollTrigger);
 
 const skillData = [
-    { title: "Frontend", icon: Layout, desc: "React, Next.js, Tailwind", color: "bg-blue-500/10 text-blue-500" },
-    { title: "Backend", icon: Server, desc: "Node.js, Express, NestJS", color: "bg-green-500/10 text-green-500" },
-    { title: "Mobile", icon: Smartphone, desc: "Flutter, React Native, Ionic", color: "bg-purple-500/10 text-purple-500" },
-    { title: "Design", icon: Figma, desc: "Figma, Adobe XD, UI/UX", color: "bg-pink-500/10 text-pink-500" },
-    { title: "Database", icon: Database, desc: "MySQL, MongoDB, PostgreSQL", color: "bg-yellow-500/10 text-yellow-500" },
-    { title: "DevOps", icon: Cloud, desc: "Docker, AWS, CI/CD", color: "bg-orange-500/10 text-orange-500" },
-    { title: "Tools", icon: Terminal, desc: "Git, VS Code, Postman", color: "bg-gray-500/10 text-gray-500" },
-    { title: "CMS/ERP", icon: Layers, desc: "Odoo, WordPress", color: "bg-teal-500/10 text-teal-500" },
+    { title: "Frontend", icon: Layout, desc: "React, Next.js, Tailwind", color: "bg-orange-100 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400" },
+    { title: "Backend", icon: Server, desc: "Node.js, Express, NestJS", color: "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400" },
+    { title: "Mobile", icon: Smartphone, desc: "Flutter, React Native, Ionic", color: "bg-rose-100 text-rose-600 dark:bg-rose-900/20 dark:text-rose-400" },
+    { title: "Design", icon: Figma, desc: "Figma, Adobe XD, UI/UX", color: "bg-violet-100 text-violet-600 dark:bg-violet-900/20 dark:text-violet-400" },
+    { title: "Database", icon: Database, desc: "MySQL, MongoDB, PostgreSQL", color: "bg-amber-100 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400" },
+    { title: "DevOps", icon: Cloud, desc: "Docker, AWS, CI/CD", color: "bg-sky-100 text-sky-600 dark:bg-sky-900/20 dark:text-sky-400" },
+    { title: "Tools", icon: Terminal, desc: "Git, VS Code, Postman", color: "bg-stone-100 text-stone-600 dark:bg-stone-900/20 dark:text-stone-400" },
+    { title: "CMS/ERP", icon: Layers, desc: "Odoo, WordPress", color: "bg-teal-100 text-teal-600 dark:bg-teal-900/20 dark:text-teal-400" },
 ];
 
 export default function BentoSkills() {

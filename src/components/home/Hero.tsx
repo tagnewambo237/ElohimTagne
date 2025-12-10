@@ -47,15 +47,22 @@ export default function Hero() {
         <section ref={containerRef} className="relative h-screen flex flex-col justify-center items-center overflow-hidden px-6">
 
             {/* Background Visual */}
+            {/* Background Visual */}
             <div className="absolute inset-0 z-0">
-                <div ref={imageRef} className="w-full h-full bg-gradient-to-b from-gray-50 to-gray-200 dark:from-neutral-900 dark:to-neutral-950" />
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
+                <div ref={imageRef} className="w-full h-full bg-background relative">
+                    {/* Warm ambient glow */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
+                </div>
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] brightness-100 contrast-150 mix-blend-overlay"></div>
             </div>
 
             <div className="z-10 text-center max-w-5xl mx-auto">
                 {/* Photo */}
-                <div className="mb-6 flex justify-center">
-                    <div className="w-28 h-28 md:w-36 md:h-36 relative border-2 border-gray-200 dark:border-white/20 shadow-2xl rounded-full">
+                <div className="mb-6 flex justify-center relative">
+                    {/* Soft Glow behind photo */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-accent/20 rounded-full blur-3xl -z-10" />
+
+                    <div className="w-28 h-28 md:w-36 md:h-36 relative border border-white/20 dark:border-white/10 shadow-2xl rounded-full">
                         <img
                             src="/Profile.png"
                             alt="Elohim TAGNE"

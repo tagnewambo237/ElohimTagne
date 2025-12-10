@@ -82,7 +82,7 @@ export default function Projects() {
                         </h2>
                     </div>
                     <div className="hidden md:block">
-                        <Sparkles className="w-8 h-8 opacity-20 animate-pulse text-pink-300" />
+                        <Sparkles className="w-8 h-8 opacity-20 animate-pulse text-accent" />
                     </div>
                 </div>
 
@@ -99,7 +99,7 @@ export default function Projects() {
                                 <h3 className="text-3xl md:text-5xl font-light tracking-tight group-hover:italic transition-all duration-300">
                                     {project.title}
                                 </h3>
-                                <span className="text-xs md:text-sm uppercase tracking-widest opacity-40 font-mono group-hover:text-pink-400 transition-colors">
+                                <span className="text-xs md:text-sm uppercase tracking-widest opacity-40 font-mono group-hover:text-accent transition-colors">
                                     {project.category}
                                 </span>
                             </div>
@@ -108,11 +108,11 @@ export default function Projects() {
                                 <span className="text-sm font-mono opacity-30 group-hover:opacity-100 transition-opacity">
                                     {project.year}
                                 </span>
-                                <ArrowUpRight className="w-6 h-6 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-pink-400" />
+                                <ArrowUpRight className="w-6 h-6 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-accent" />
                             </div>
 
                             {/* Soft Hover Background */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-transparent dark:from-white/5 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-stone-50 to-transparent dark:from-white/5 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         </Link>
                     ))}
                     <div className="border-t border-black/5 dark:border-white/5" />
@@ -122,7 +122,7 @@ export default function Projects() {
             {/* Floating Image Preview - Softer & Cuter */}
             <div
                 ref={cursorImageRef}
-                className="fixed top-0 left-0 w-[450px] aspect-[16/10] pointer-events-none z-[60] overflow-hidden rounded-[2rem] opacity-0 -translate-x-1/2 -translate-y-1/2 hidden md:block shadow-2xl shadow-pink-500/10"
+                className="fixed top-0 left-0 w-[450px] aspect-[16/10] pointer-events-none z-[60] overflow-hidden rounded-[2rem] opacity-0 -translate-x-1/2 -translate-y-1/2 hidden md:block shadow-2xl shadow-accent/10"
                 style={{
                     opacity: activeProject ? 1 : 0,
                     transform: `translate(-50%, -50%) scale(${activeProject ? 1 : 0.8}) rotate(${activeProject ? -2 : 0}deg)`,

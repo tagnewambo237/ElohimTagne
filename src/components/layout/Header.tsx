@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import Magnetic from "@/components/ui/Magnetic";
+import HangingCat from "@/components/ui/HangingCat";
 
 const navItems = [
     { name: 'Projects', href: '/projects' },
@@ -58,9 +59,10 @@ export default function Header() {
                 {/* Dynamic Island Nav */}
                 <div
                     ref={navRef}
-                    className="pointer-events-auto bg-white/10 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl shadow-black/5"
+                    className="pointer-events-auto glass rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl shadow-stone-500/5 dark:shadow-black/20 relative" // Added relative
                 >
-                    <Link href="/" className="font-semibold tracking-tight text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
+                    <HangingCat />
+                    <Link href="/" className="font-bold tracking-tight text-foreground hover:text-accent transition-colors">
                         ELOHIM<span className="text-accent text-xs align-top">®</span>
                     </Link>
 
