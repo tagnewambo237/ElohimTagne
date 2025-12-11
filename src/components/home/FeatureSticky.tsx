@@ -42,11 +42,11 @@ export default function FeatureSticky() {
                 start: "top top",
                 end: `+=${content.length * 100}%`,
                 pin: true,
-                scrub: true,
+                scrub: 1, // Add some lag for smoothness
                 snap: 1 / (content.length - 1),
                 animation: gsap.timeline()
-                    .to(texts, { yPercent: -100 * (content.length - 1), ease: 'none' }, 0)
-                    .to(images, { yPercent: -100 * (content.length - 1), ease: 'none' }, 0)
+                    .to(texts, { yPercent: -100 * (content.length - 1), ease: 'power1.inOut' }, 0) // Smoother ease
+                    .to(images, { yPercent: -100 * (content.length - 1), ease: 'power1.inOut' }, 0)
             });
 
         }, componentRef);

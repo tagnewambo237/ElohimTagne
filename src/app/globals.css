@@ -113,6 +113,41 @@ body {
   /* Gentle theme transition */
 }
 
+/* Ensure consistent light mode variables */
+:root.light {
+  --background: #FAFAF9;
+  --foreground: #44403C;
+  --muted: #A8A29E;
+  --accent: #B45309;
+  --glass: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(231, 229, 228, 0.6);
+  --card-bg: #FFFFFF;
+  --card-border: rgba(28, 25, 23, 0.05);
+}
+
+:root.light {
+  --background: #FAFAF9;
+  --foreground: #44403C;
+  --muted: #A8A29E;
+  --accent: #B45309;
+  --glass: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(231, 229, 228, 0.6);
+  --card-bg: #FFFFFF;
+  --card-border: rgba(28, 25, 23, 0.05);
+}
+
+/* Force pointer cursor on interactive elements */
+a,
+button,
+[role="button"],
+input,
+label,
+select,
+summary,
+[tabindex="0"] {
+  cursor: pointer;
+}
+
 /* Custom Cursor Styles - Softer */
 .cursor-dot {
   position: fixed;

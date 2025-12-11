@@ -2,8 +2,9 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import gsap from 'gsap';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, MessageSquare, ArrowUpRight } from 'lucide-react';
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import Magnetic from "@/components/ui/Magnetic";
 import HangingCat from "@/components/ui/HangingCat";
@@ -16,6 +17,7 @@ export default function Header() {
     const navRef = useRef<HTMLDivElement>(null);
     const menuRef = useRef<HTMLDivElement>(null);
     const { t } = useLanguage();
+    const pathname = usePathname();
 
     const navItems = [
         { name: t.nav.home, href: '/' },
@@ -64,7 +66,7 @@ export default function Header() {
                 {/* Dynamic Island Nav */}
                 <div
                     ref={navRef}
-                    className="pointer-events-auto glass rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl shadow-stone-500/5 dark:shadow-black/20 relative" // Added relative
+                    className="pointer-events-auto rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl shadow-stone-500/5 dark:shadow-black/20 relative bg-background border border-stone-200 dark:border-white/10 md:bg-[var(--glass)] md:backdrop-blur-xl md:border-[var(--glass-border)]"
                 >
                     <HangingCat />
                     <div className="flex items-center gap-2 relative">
@@ -79,10 +81,10 @@ export default function Header() {
                             <Magnetic key={item.href}>
                                 <Link
                                     href={item.href}
-                                    className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors relative group px-2 py-1"
+                                    className={`text-sm font-medium transition-colors relative group px-2 py-1 ${pathname === item.href ? 'text-foreground' : 'text-foreground/60 hover:text-foreground'}`}
                                 >
                                     {item.name}
-                                    <span className="absolute -bottom-1 left-1/2 w-0 h-[2px] bg-foreground/80 transition-all duration-300 group-hover:w-full group-hover:-translate-x-1/2 rounded-full" />
+                                    <span className={`absolute -bottom-1 left-1/2 w-0 h-[2px] bg-foreground/80 transition-all duration-300 rounded-full ${pathname === item.href ? 'w-full -translate-x-1/2' : 'group-hover:w-full group-hover:-translate-x-1/2'}`} />
                                 </Link>
                             </Magnetic>
                         ))}
@@ -102,7 +104,7 @@ export default function Header() {
                                 href="#contact"
                                 className="hidden md:flex items-center gap-2 bg-foreground text-background px-5 py-2 rounded-full text-sm font-medium hover:scale-105 transition-transform active:scale-95"
                             >
-                                {t.nav.contact} <ArrowUpRight size={14} />
+                                {t.nav.contact} <MessageSquare size={14} />
                             </a>
                         </Magnetic>
                     </div>

@@ -35,38 +35,26 @@ export default function HorizontalGallery() {
                 start: "top top",
                 end: () => `+=${slider.scrollWidth - window.innerWidth}`,
                 pin: true,
-                scrub: 1.5,
+                scrub: 1,
                 animation: tween,
                 invalidateOnRefresh: true,
                 onUpdate: (self) => {
-                    // Skew effect
                     const skew = self.getVelocity() / 300;
                     gsap.to(slider, { skewX: skew, overwrite: 'auto', ease: 'power3.out', duration: 0.1 });
 
-                    // Scale effect based on center position
+                    // Simpler highlight for center item
                     slides.forEach((slide) => {
                         const box = slide.getBoundingClientRect();
                         const centerPosition = box.left + box.width / 2;
                         const screenCenter = window.innerWidth / 2;
                         const distance = Math.abs(screenCenter - centerPosition);
-                        const maxDistance = window.innerWidth / 2;
-
-                        // Calculate scale: 1 at center, smaller at edges
-                        let scale = 1;
-                        if (distance < maxDistance) {
-                            // normalize distance: 0 at center, 1 at edge
-                            const progress = 1 - (distance / maxDistance);
-                            // Interpolate between 0.85 and 1.1 opacity/scale
-                            scale = 0.85 + (0.25 * Math.pow(progress, 2)); // Ease in
-                        } else {
-                            scale = 0.85;
-                        }
 
                         gsap.to(slide, {
-                            scale: scale,
-                            opacity: distance < 300 ? 1 : 0.5, // Highlight center item
+                            opacity: distance < 400 ? 1 : 0.4,
+                            filter: distance < 400 ? 'grayscale(0%)' : 'grayscale(100%)', // Elegant grayscale shift
+                            scale: 1, // Force scale 1 (no Zoom)
                             overwrite: 'auto',
-                            duration: 0.2
+                            duration: 0.3
                         });
                     });
                 }

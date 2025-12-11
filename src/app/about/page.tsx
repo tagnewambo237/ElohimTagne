@@ -6,6 +6,7 @@ import TextReveal from "@/components/ui/TextReveal";
 import ParallaxGallery from "@/components/about/ParallaxGallery";
 import CoffeeAccent from "@/components/ui/CoffeeAccent";
 import PeekabooCat from "@/components/ui/PeekabooCat";
+import ParallaxGalleryMobile from "@/components/about/ParallaxGalleryMobile";
 import Image from "next/image";
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -16,12 +17,12 @@ export default function AboutPage() {
         <main className="w-full min-h-screen bg-background text-foreground overflow-hidden">
             <Header />
 
-            <section className="pt-48 px-6 md:px-12 max-w-7xl mx-auto min-h-screen flex flex-col justify-center">
-                <TextReveal className="text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tighter mb-12">
+            <section className="pt-24 md:pt-48 px-6 md:px-12 max-w-7xl mx-auto min-h-screen flex flex-col justify-center">
+                <TextReveal className="text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tighter md:mb-12">
                     {t.about.title}
                 </TextReveal>
 
-                <div className="flex flex-col md:flex-row gap-12 items-start mt-12">
+                <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start mt-8 md:mt-12">
                     <div className="w-full md:w-1/2">
                         <div className="relative aspect-[3/4] overflow-hidden rounded-2xl group border border-stone-200 dark:border-stone-800 shadow-2xl">
                             <Image
@@ -79,7 +80,11 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            <ParallaxGallery />
+            <div className="hidden md:block">
+                <ParallaxGallery />
+            </div>
+
+            <ParallaxGalleryMobile />
 
             <Footer />
         </main>

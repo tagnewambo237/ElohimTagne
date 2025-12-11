@@ -7,6 +7,7 @@ import About from "@/components/home/About";
 import BentoSkills from "@/components/home/BentoSkills";
 import ExperienceStack from "@/components/home/ExperienceStack";
 import HorizontalGallery from "@/components/home/HorizontalGallery";
+import HorizontalGalleryMobile from "@/components/home/HorizontalGalleryMobile";
 import FeatureSticky from "@/components/home/FeatureSticky";
 import Preloader from "@/components/ui/Preloader";
 
@@ -15,15 +16,18 @@ export default function Home() {
     <main className="relative w-full min-h-screen bg-background text-foreground">
       <Preloader />
       <Header />
-
-      {/* Narrative Flow */}
       <Hero />
       <FeatureSticky />        {/* Philosophy & Approach */}
-      <HorizontalGallery />    {/* Selected Works - Impact First */}
+
+      {/* Works Gallery */}
+      <div className="hidden md:block">
+        <HorizontalGallery />
+      </div>
+      <HorizontalGalleryMobile />
+
       <BentoSkills />          {/* Technical Toolbox */}
       <ExperienceStack />      {/* History & Credibility */}
       <About />                {/* Personal Connection */}
-
       <Footer />
     </main>
   );
