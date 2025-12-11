@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import clsx from 'clsx';
 import TextReveal from '@/components/ui/TextReveal';
 import ParallaxImage from '@/components/ui/ParallaxImage';
+import CursorCat from '@/components/ui/CursorCat';
 
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -71,9 +72,16 @@ export default function About() {
                                 {t.text3}
                             </TextReveal>
                         </div>
-                        <div className="flex gap-6 mt-8 text-sm opacity-60 font-mono">
-                            <span>{t.location}</span>
-                            <span>{t.languages}</span>
+                        <div className="flex flex-wrap gap-4 md:gap-6 mt-8 text-sm opacity-60 font-mono">
+                            <span className="flex items-center gap-2">
+                                📍 {t.location}
+                            </span>
+                            <span className="flex items-center gap-2">
+                                🌐 {t.languages}
+                            </span>
+                            {/* <span className="flex items-center gap-2 text-accent/80" title="Level 24">
+                                ✨ Lv. 24
+                            </span> */}
                         </div>
                     </div>
 
@@ -92,9 +100,16 @@ export default function About() {
                         ))}
                     </div>
 
-                    <div className="flex flex-col gap-4 mt-8 bg-gray-50 dark:bg-white/5 p-8 rounded-2xl">
-                        <h3 className="text-lg font-medium">{t.strengthsTitle}</h3>
-                        <p className="opacity-70 leading-relaxed italic">
+                    <div className="flex flex-col gap-4 mt-8 bg-gray-50 dark:bg-white/5 p-8 rounded-2xl relative overflow-hidden group">
+                        {/* Subtle background decoration */}
+                        <div className="absolute top-[-10px] right-[-10px] text-6xl opacity-5 rotate-12 group-hover:opacity-10 transition-opacity select-none">
+                            ☕️
+                        </div>
+
+                        <h3 className="text-lg font-medium flex items-center gap-2">
+                            {t.strengthsTitle}
+                        </h3>
+                        <p className="opacity-70 leading-relaxed italic relative z-10">
                             {t.strengthsText}
                         </p>
                     </div>
@@ -102,15 +117,25 @@ export default function About() {
 
                 {/* Right: Image / Visual */}
                 <div className="md:col-span-12 lg:col-span-4 relative group">
+                    <CursorCat />
                     <ParallaxImage
                         src="/Elohim.jpeg?q=80&w=2574&auto=format&fit=crop"
                         alt="Elohim Junior"
                         className="rounded-2xl aspect-[4/5] bg-gray-200 dark:bg-gray-800 grayscale hover:grayscale-0 transition-all duration-500"
                         speed={1.1} // Subtle parallax
                     />
-                    <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent text-white pointer-events-none rounded-b-2xl">
-                        <p className="font-medium">Elohim Junior</p>
-                        <p className="text-xs opacity-70">Tech enthusiast</p>
+                    <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent text-white pointer-events-none rounded-b-2xl">
+                        <div className="flex justify-between items-end">
+                            <div>
+                                <p className="font-medium text-lg">Elohim Junior</p>
+                                <p className="text-sm opacity-80 font-mono flex items-center gap-2">
+                                    Tech enthusiast <span className="opacity-50">|</span> 🎮 <span className="opacity-50">|</span> ☕️
+                                </p>
+                            </div>
+                            <div className="text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                👾
+                            </div>
+                        </div>
                     </div>
                 </div>
 

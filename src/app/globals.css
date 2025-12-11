@@ -9,9 +9,10 @@
   --muted: #A8A29E;
   /* Warm Stone 400 */
 
-  /* Accent: A sophisticated, soft Amber/Gold aiming for "Coffee/Warmth" vibe but modern */
-  --accent: #B45309;
-  /* Amber 700 */
+  /* Accent: Playful Soft Caramel / Golden Latte */
+  --accent: #D97706;
+  /* Amber 600 - Warm & Tasty */
+  /* --accent: #EA580C;  Alternative: Burnt Orange if too yellow */
 
   --glass: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(231, 229, 228, 0.6);
@@ -78,8 +79,8 @@
     --muted: #78716C;
     /* Warm Stone 500 */
 
-    --accent: #D97706;
-    /* Amber 600 - Glowing warmth */
+    --accent: #FB923C;
+    /* Orange 400 - Soft Glow */
 
     --glass: rgba(12, 10, 9, 0.7);
     --glass-border: rgba(255, 255, 255, 0.08);
