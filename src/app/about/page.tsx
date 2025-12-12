@@ -50,7 +50,7 @@ export default function AboutPage() {
                             "{t.about.subtitle}"
                         </p>
 
-                        <div className="mt-12 grid grid-cols-2 gap-8 text-sm font-mono border-t border-stone-200 dark:border-stone-800 pt-8">
+                        <div className="grid grid-cols-2 gap-8 text-sm font-mono border-t border-stone-200 dark:border-stone-800 pt-8">
                             <div>
                                 <h3 className="uppercase tracking-widest text-stone-500 dark:text-stone-400 mb-4 text-accent">Techniques</h3>
                                 <ul className="flex flex-col gap-2 text-stone-600 dark:text-stone-300">
