@@ -55,7 +55,7 @@ export default function FeatureSticky() {
     }, []);
 
     return (
-        <section className="relative bg-gray-900 dark:bg-gray-950 text-white">
+        <section className="relative bg-stone-900 dark:bg-black text-stone-50">
             <div ref={componentRef} className="h-[100dvh] w-full flex items-center overflow-hidden">
                 <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 px-6 md:px-12 h-[85dvh] items-center">
 

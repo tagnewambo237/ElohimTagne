@@ -1,14 +1,13 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
 
 const phrases = [
     "☕ Un café et je code le monde !",
     "🎮 Pause gaming ? Jamais entendu parler...",
     "😸 Miaou ! (Ça veut dire 'debug en cours')",
     "📚 Je lis des mangas pour 'la recherche UX'",
-    "💻 404: Motivation not found... jk, café incoming!",
+    "💻 404: Motivation not found... jk, café is loading...",
     "🐱 Ce code a besoin de plus de caféine",
     "🎯 Bug fixé ! ...ou pas. On verra demain.",
     "✨ Ctrl+S est ma religion",
@@ -16,178 +15,281 @@ const phrases = [
     "😼 Je ne dors pas, je compile",
 ];
 
-export default function CursorCat() {
+export default function CursorCat({ className = "" }: { className?: string }) {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
-    const eyesRef = useRef<SVGGElement>(null);
+
+    const [currentPhrase, setCurrentPhrase] = useState("");
     const [showBubble, setShowBubble] = useState(false);
-    const [currentPhrase, setCurrentPhrase] = useState('');
 
-    const handleClick = () => {
-        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-        setCurrentPhrase(randomPhrase);
-        setShowBubble(true);
+    // We use a ref to access the shake/particles logic from the event handlers
+    // without re-binding listeners on every render.
+    const physicsRef = useRef({
+        shake: 0,
+        wavePhase: 0,
+        particles: [] as Particle[]
+    });
 
-        // Bounce animation on click
-        if (containerRef.current) {
-            gsap.to(containerRef.current, {
-                scale: 1.1,
-                duration: 0.15,
-                yoyo: true,
-                repeat: 1,
-                ease: "power2.out"
-            });
+    // Helper to add particles
+    const addParticles = (width: number, height: number) => {
+        const cx = width / 2;
+        const cy = height / 2 - 15;
+        for (let i = 0; i < 8; i++) {
+            physicsRef.current.particles.push(new Particle(cx, cy));
         }
-
-        // Hide bubble after 3 seconds
-        setTimeout(() => {
-            setShowBubble(false);
-        }, 3000);
     };
 
-    const handleMouseEnter = () => {
+    // Initial phrase
+    useEffect(() => {
         const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
         setCurrentPhrase(randomPhrase);
+    }, []);
+
+    class Particle {
+        x: number; y: number;
+        vx: number; vy: number;
+        life: number; size: number;
+
+        constructor(x: number, y: number) {
+            this.x = x; this.y = y;
+            const angle = (Math.random() * Math.PI) + Math.PI;
+            const speed = Math.random() * 8 + 2;
+            this.vx = (Math.random() - 0.5) * speed;
+            this.vy = -(Math.random() * speed * 0.8);
+            this.life = 1.0;
+            this.size = Math.random() * 2 + 1.5;
+        }
+
+        update() {
+            this.vy += 0.5; this.x += this.vx; this.y += this.vy; this.life -= 0.025;
+        }
+
+        draw(c: CanvasRenderingContext2D) {
+            c.globalAlpha = this.life; c.fillStyle = '#451a03'; c.beginPath();
+            c.arc(this.x, this.y, this.size, 0, Math.PI * 2); c.fill(); c.globalAlpha = 1.0;
+        }
+    }
+
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const ctx = canvas?.getContext('2d');
+        if (!canvas || !ctx) return;
+
+        let width = 0, height = 0;
+        let scale = 1;
+        let frame = 0;
+
+        // Mouse tracking for eyes
+        let mouseX = 0;
+        let mouseY = 0;
+        const handleMouseMove = (e: MouseEvent) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        };
+        window.addEventListener('mousemove', handleMouseMove);
+
+        const resize = () => {
+            const parent = canvas.parentElement;
+            if (parent) {
+                const rect = parent.getBoundingClientRect();
+                scale = window.devicePixelRatio || 1;
+                width = rect.width; height = rect.height;
+                canvas.width = width * scale; canvas.height = height * scale;
+                ctx.scale(scale, scale);
+            }
+        };
+        window.addEventListener('resize', resize);
+        resize();
+
+        const draw = () => {
+            ctx.clearRect(0, 0, width, height);
+            const cx = width / 2; const cy = height / 2 + 12; const s = width / 100;
+            const physics = physicsRef.current;
+
+            let shakeX = 0; let shakeY = 0;
+            if (physics.shake > 0) {
+                shakeX = (Math.random() - 0.5) * physics.shake;
+                shakeY = (Math.random() - 0.5) * physics.shake;
+                physics.shake *= 0.92; if (physics.shake < 0.5) physics.shake = 0;
+            }
+
+            ctx.save();
+            ctx.translate(shakeX, shakeY);
+
+            // --- 1. CUP HANDLE ---
+            ctx.beginPath();
+            const handleStartX = cx + 22 * s; const handleStartY = cy - 10 * s;
+            ctx.moveTo(handleStartX, handleStartY);
+            ctx.bezierCurveTo(cx + 45 * s, handleStartY - 5 * s, cx + 45 * s, cy + 25 * s, handleStartX + 2 * s, cy + 20 * s);
+            ctx.lineWidth = 6 * s; ctx.strokeStyle = '#f59e0b'; ctx.lineCap = 'round'; ctx.stroke();
+
+            // --- 2. BACK CUP ---
+            ctx.fillStyle = '#fef3c7'; ctx.beginPath();
+            ctx.ellipse(cx, cy - 20 * s, 26 * s, 8 * s, 0, 0, Math.PI * 2);
+            ctx.fill(); ctx.lineWidth = 1 * s; ctx.strokeStyle = '#d97706'; ctx.stroke();
+
+            // --- 3. LIQUID ---
+            physics.wavePhase += 0.2; const liquidY = cy - 18 * s; ctx.fillStyle = '#451a03';
+            ctx.save(); ctx.beginPath(); ctx.ellipse(cx, cy - 20 * s, 24 * s, 6 * s, 0, 0, Math.PI * 2); ctx.clip();
+            ctx.beginPath(); ctx.moveTo(cx - 30 * s, liquidY);
+            for (let i = -30 * s; i <= 30 * s; i += 2) {
+                const amp = 1 * s + (physics.shake * 0.15);
+                const dy = Math.sin((i * 0.15) + physics.wavePhase) * amp;
+                ctx.lineTo(cx + i, liquidY + dy);
+            }
+            ctx.lineTo(cx + 30 * s, liquidY + 50 * s); ctx.lineTo(cx - 30 * s, liquidY + 50 * s);
+            ctx.fill(); ctx.restore();
+
+            // --- 4. CAT (NOIR ET PETITS YEUX) ---
+            const catY = liquidY - 2 * s + Math.sin(frame * 0.08) * (1.5 * s);
+            const catColor = '#262626';
+
+            // Ears
+            ctx.fillStyle = catColor;
+            ctx.beginPath();
+            ctx.moveTo(cx - 10 * s, catY - 12 * s); ctx.lineTo(cx - 16 * s, catY - 24 * s); ctx.lineTo(cx - 4 * s, catY - 16 * s);
+            ctx.moveTo(cx + 10 * s, catY - 12 * s); ctx.lineTo(cx + 16 * s, catY - 24 * s); ctx.lineTo(cx + 4 * s, catY - 16 * s);
+            ctx.fill();
+
+            // Head
+            ctx.beginPath();
+            ctx.arc(cx, catY - 10 * s, 15 * s, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Face Details
+            if (physics.shake > 2) {
+                // Scared face
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 1.5 * s;
+                ctx.beginPath();
+                ctx.moveTo(cx - 8 * s, catY - 10 * s); ctx.lineTo(cx - 5 * s, catY - 8.5 * s);
+                ctx.moveTo(cx - 8 * s, catY - 7 * s); ctx.lineTo(cx - 5 * s, catY - 8.5 * s);
+                ctx.moveTo(cx + 8 * s, catY - 10 * s); ctx.lineTo(cx + 5 * s, catY - 8.5 * s);
+                ctx.moveTo(cx + 8 * s, catY - 7 * s); ctx.lineTo(cx + 5 * s, catY - 8.5 * s);
+                ctx.stroke();
+            } else {
+                // Eye Tracking Logic
+                // Get canvas position relative to viewport
+                const rect = canvas.getBoundingClientRect();
+                const canvasCenterX = rect.left + rect.width / 2;
+                const canvasCenterY = rect.top + rect.height / 2;
+
+                const angle = Math.atan2(mouseY - canvasCenterY, mouseX - canvasCenterX);
+                // Limit the pupil movement distance
+                const eyeRadius = 3.5 * s; // Bigger eyes
+                const pupilRadius = 1.5 * s;
+                const maxOffset = 1.5 * s;
+
+                // Calculate pupil offset
+                // We use a bit of smoothing or just direct tracking. Direct is snappier for "following".
+                const pupilX = Math.cos(angle) * maxOffset;
+                const pupilY = Math.sin(angle) * maxOffset;
+
+                // Sclera (White part, bigger)
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                // Left Eye
+                ctx.arc(cx - 6 * s, catY - 10 * s, eyeRadius, 0, Math.PI * 2);
+                // Right Eye
+                ctx.arc(cx + 6 * s, catY - 10 * s, eyeRadius, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Pupils (Black, following cursor)
+                ctx.fillStyle = '#171717'; // Almost black
+                ctx.beginPath();
+                // Left Pupil
+                ctx.arc(cx - 6 * s + pupilX, catY - 10 * s + pupilY, pupilRadius, 0, Math.PI * 2);
+                // Right Pupil
+                ctx.arc(cx + 6 * s + pupilX, catY - 10 * s + pupilY, pupilRadius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // --- 5. FRONT CUP ---
+            ctx.fillStyle = '#fef3c7'; ctx.beginPath();
+            ctx.moveTo(cx - 26 * s, cy - 20 * s);
+            ctx.bezierCurveTo(cx - 22 * s, cy + 30 * s, cx + 22 * s, cy + 30 * s, cx + 26 * s, cy - 20 * s);
+            ctx.fill(); ctx.lineWidth = 1.5 * s; ctx.strokeStyle = '#d97706'; ctx.stroke();
+            ctx.beginPath(); ctx.ellipse(cx, cy - 20 * s, 26 * s, 8 * s, 0, Math.PI, Math.PI, false);
+            ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 2 * s; ctx.stroke();
+
+            // --- 6. JS BADGE ---
+            ctx.save(); ctx.translate(cx, cy + 5 * s); ctx.rotate(-0.1);
+            ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(0, 0, 9 * s, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#78350f'; ctx.font = `bold ${10 * s}px monospace`;
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('JS', 0, 1 * s); ctx.restore();
+
+            // --- 7. PAWS ---
+            ctx.fillStyle = catColor;
+            ctx.beginPath(); ctx.ellipse(cx - 12 * s, cy - 18 * s, 4 * s, 4 * s, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.ellipse(cx + 12 * s, cy - 18 * s, 4 * s, 4 * s, 0, 0, Math.PI * 2); ctx.fill();
+
+            ctx.restore();
+
+            // --- 8. PARTICLES ---
+            for (let i = physics.particles.length - 1; i >= 0; i--) {
+                const p = physics.particles[i]; p.update(); p.draw(ctx);
+                if (p.life <= 0) physics.particles.splice(i, 1);
+            }
+            frame++; requestAnimationFrame(draw);
+        };
+
+        const animId = requestAnimationFrame(draw);
+
+        return () => {
+            cancelAnimationFrame(animId);
+            window.removeEventListener('resize', resize);
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, []);
+
+    const handleMouseEnter = () => {
+        // Just show bubble, no shake
         setShowBubble(true);
+        // Optionally change phrase on hover too? User said "le texte s'affiche quand on hover"
+        // Let's keep the current phrase (maybe randomly set on mount) to avoid too much flickering text
+        // or we could change it if it was hidden.
+        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+        setCurrentPhrase(randomPhrase);
     };
 
     const handleMouseLeave = () => {
         setShowBubble(false);
     };
 
-    useEffect(() => {
-        const container = containerRef.current;
-        if (!container) return;
+    const handleClick = () => {
+        // Shake on click
+        physicsRef.current.shake = 25;
 
-        // Idle floating animation
-        gsap.to(container, {
-            y: -3,
-            duration: 2,
-            yoyo: true,
-            repeat: -1,
-            ease: "sine.inOut"
-        });
+        // Add particles
+        if (canvasRef.current) {
+            const rect = canvasRef.current.getBoundingClientRect();
+            // We need logical width/height used in draw. 
+            // In draw(), width/height comes from rect. 
+            // We'll just pass the rect dimensions to a helper which creates particles at center
+            addParticles(rect.width, rect.height);
+        }
 
-        const handleMouseMove = (e: MouseEvent) => {
-            if (!eyesRef.current || !container) return;
-
-            const rekt = container.getBoundingClientRect();
-            const centerX = rekt.left + rekt.width / 2;
-            const centerY = rekt.top + rekt.height / 2;
-
-            const deltaX = e.clientX - centerX;
-            const deltaY = e.clientY - centerY;
-
-            // === EYES TRACKING ===
-            const eyeLimit = 3;
-            const eyeX = Math.max(-eyeLimit, Math.min(eyeLimit, deltaX / 30));
-            const eyeY = Math.max(-eyeLimit, Math.min(eyeLimit, deltaY / 30));
-
-            gsap.to('.cursor-cat-pupil', {
-                x: eyeX,
-                y: eyeY,
-                duration: 0.2,
-                ease: "power2.out"
-            });
-
-            // === PHYSICS-BASED TILT ===
-            const tiltLimit = 8;
-            const tiltX = Math.max(-tiltLimit, Math.min(tiltLimit, deltaX / 40));
-            const tiltY = Math.max(-tiltLimit, Math.min(tiltLimit, deltaY / 60));
-
-            gsap.to(container, {
-                rotationY: tiltX,
-                rotationX: -tiltY * 0.5,
-                duration: 0.6,
-                ease: "elastic.out(1, 0.5)",
-                overwrite: 'auto'
-            });
-        };
-
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, []);
+        // Also ensure bubble is shown (user said "et affichera le texte")
+        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+        setCurrentPhrase(randomPhrase);
+        setShowBubble(true);
+    };
 
     return (
-        <div className="absolute -top-14 -right-6 z-20">
-            {/* Speech Bubble */}
-            <div
-                className={`absolute bottom-24 -left-36 w-56 bg-white dark:bg-stone-800 text-foreground text-xs font-medium px-4 py-2.5 rounded-xl shadow-lg border border-stone-200 dark:border-white/10 transition-all duration-300 ${showBubble ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}
-            >
+        <div
+            ref={containerRef}
+            className={`flex flex-col items-center justify-center relative ${className}`}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
+        >
+            <div className={`absolute -top-16 z-10 w-48 text-center bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-100 text-xs font-bold px-3 py-2 rounded-xl shadow-xl border border-stone-100 dark:border-stone-700 transition-all duration-300 transform origin-bottom pointer-events-none ${showBubble ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-75 translate-y-2'}`}>
                 {currentPhrase}
-                {/* Bubble tail pointing to cat */}
-                <div className="absolute -bottom-2 right-8 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-white dark:border-t-stone-800"></div>
+                <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white dark:bg-stone-800 border-b border-r border-stone-100 dark:border-stone-700 rotate-45"></div>
             </div>
-
-            {/* Cat Container */}
-            <div
-                ref={containerRef}
-                onClick={handleClick}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                className="w-20 h-20 cursor-pointer hover:scale-105 transition-transform"
-                style={{ transformStyle: 'preserve-3d', perspective: '200px' }}
-            >
-                <svg viewBox="0 0 80 80" className="w-full h-full drop-shadow-lg">
-
-                    {/* ===== MUG ===== */}
-                    <g>
-                        <path
-                            d="M62 48 C70 48 72 58 62 58"
-                            fill="none"
-                            stroke="#D97706"
-                            strokeWidth="4"
-                            strokeLinecap="round"
-                        />
-                        <rect x="18" y="40" width="46" height="32" rx="6" fill="#FEF3C7" stroke="#D97706" strokeWidth="2" />
-                        <ellipse cx="41" cy="42" rx="20" ry="4" fill="#78350F" />
-                        <line x1="24" y1="64" x2="58" y2="64" stroke="#D97706" strokeWidth="1.5" opacity="0.4" />
-                    </g>
-
-                    {/* ===== CAT ===== */}
-                    <g>
-                        <ellipse cx="41" cy="50" rx="14" ry="10" fill="#4B3F35" />
-                        <ellipse cx="41" cy="28" rx="16" ry="14" fill="#4B3F35" />
-                        <path d="M28 22 L22 6 L36 18 Z" fill="#4B3F35" />
-                        <path d="M54 22 L60 6 L46 18 Z" fill="#4B3F35" />
-                        <path d="M29 20 L25 10 L34 17 Z" fill="#FECACA" />
-                        <path d="M53 20 L57 10 L48 17 Z" fill="#FECACA" />
-
-                        <g ref={eyesRef}>
-                            <ellipse cx="34" cy="27" rx="5" ry="5.5" fill="white" />
-                            <ellipse cx="48" cy="27" rx="5" ry="5.5" fill="white" />
-                            <ellipse cx="35" cy="27" rx="2.5" ry="3" fill="#1C1917" className="cursor-cat-pupil" />
-                            <ellipse cx="49" cy="27" rx="2.5" ry="3" fill="#1C1917" className="cursor-cat-pupil" />
-                            <circle cx="36" cy="25.5" r="1.2" fill="white" className="cursor-cat-pupil" />
-                            <circle cx="50" cy="25.5" r="1.2" fill="white" className="cursor-cat-pupil" />
-                        </g>
-
-                        <ellipse cx="41" cy="33" rx="2" ry="1.5" fill="#FECACA" />
-                        <path d="M41 34 L41 36 M38 37 Q41 39 44 37" stroke="#FECACA" strokeWidth="1.2" strokeLinecap="round" fill="none" />
-
-                        <g stroke="#A8A29E" strokeWidth="0.8" strokeLinecap="round">
-                            <line x1="26" y1="30" x2="18" y2="28" />
-                            <line x1="26" y1="33" x2="18" y2="34" />
-                            <line x1="56" y1="30" x2="64" y2="28" />
-                            <line x1="56" y1="33" x2="64" y2="34" />
-                        </g>
-
-                        <ellipse cx="30" cy="42" rx="5" ry="4" fill="#4B3F35" />
-                        <ellipse cx="52" cy="42" rx="5" ry="4" fill="#4B3F35" />
-                        <ellipse cx="30" cy="43" rx="2" ry="1.5" fill="#FECACA" opacity="0.6" />
-                        <ellipse cx="52" cy="43" rx="2" ry="1.5" fill="#FECACA" opacity="0.6" />
-                    </g>
-
-                    {/* ===== STEAM ===== */}
-                    <g opacity="0.5">
-                        <path d="M35 10 Q38 5 35 0" stroke="#A8A29E" strokeWidth="1.5" strokeLinecap="round" fill="none">
-                            <animate attributeName="d" values="M35 10 Q38 5 35 0;M35 10 Q32 5 35 0;M35 10 Q38 5 35 0" dur="2s" repeatCount="indefinite" />
-                        </path>
-                        <path d="M47 8 Q50 3 47 -2" stroke="#A8A29E" strokeWidth="1.5" strokeLinecap="round" fill="none">
-                            <animate attributeName="d" values="M47 8 Q50 3 47 -2;M47 8 Q44 3 47 -2;M47 8 Q50 3 47 -2" dur="2.5s" repeatCount="indefinite" />
-                        </path>
-                    </g>
-
-                </svg>
+            <div className="w-24 h-24 cursor-pointer relative transition-transform active:scale-95" title="Click to shake!">
+                <canvas ref={canvasRef} className="w-full h-full" />
             </div>
         </div>
     );

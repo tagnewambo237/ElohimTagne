@@ -65,7 +65,7 @@ export default function HorizontalGallery() {
     }, [language]); // Add dependency on language if needed, or empty
 
     return (
-        <section id="work" ref={sectionRef} className="h-screen bg-gray-900 dark:bg-gray-950 text-white overflow-hidden relative flex items-center">
+        <section id="work" ref={sectionRef} className="h-screen bg-stone-900 dark:bg-black text-stone-50 overflow-hidden relative flex items-center">
 
             <div className="absolute top-12 left-6 md:left-12 z-10">
                 <span className="text-sm font-mono uppercase tracking-widest opacity-60">{t.gallery.label}</span>
@@ -77,7 +77,7 @@ export default function HorizontalGallery() {
                     <Link
                         key={work.id}
                         href={`/projects/${work.id}`}
-                        className="gallery-item relative group w-[70vw] md:w-[600px] aspect-[4/3] md:aspect-[16/9] flex-shrink-0 bg-gray-800 rounded-3xl overflow-hidden cursor-pointer block transform-gpu active:scale-95 transition-all"
+                        className="gallery-item relative group w-[70vw] md:w-[600px] aspect-[4/3] md:aspect-[16/9] flex-shrink-0 bg-stone-800 rounded-3xl overflow-hidden cursor-pointer block transform-gpu active:scale-95 transition-all"
                     >
                         <Image
                             src={work.img}
@@ -87,7 +87,7 @@ export default function HorizontalGallery() {
                         />
                         <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500">
                             <h3 className="text-2xl md:text-3xl font-medium text-white mb-1">{work.title}</h3>
-                            <p className="font-mono text-sm text-gray-400">{work.category[language]}</p>
+                            <p className="font-mono text-sm text-stone-400">{work.category[language]}</p>
                         </div>
                     </Link>
                 ))}

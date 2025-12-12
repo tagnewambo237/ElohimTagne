@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
+/* Enable dark mode with class strategy for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   /* Warm & Cosy Light Mode */
   --background: #FAFAF9;
   /* Warm Stone 50 */
-  --foreground: #44403C;
-  /* Warm Stone 700 - Softer than black */
-  --muted: #A8A29E;
-  /* Warm Stone 400 */
+  --foreground: #1C1917;
+  /* Warm Stone 900 - Darker for better readability */
+  --muted: #57534E;
+  /* Warm Stone 600 - More visible secondary text */
 
   /* Accent: Playful Soft Caramel / Golden Latte */
   --accent: #D97706;
@@ -117,8 +120,8 @@ body {
 /* Ensure consistent light mode variables */
 :root.light {
   --background: #FAFAF9;
-  --foreground: #44403C;
-  --muted: #A8A29E;
+  --foreground: #1C1917;
+  --muted: #57534E;
   --accent: #B45309;
   --glass: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(231, 229, 228, 0.6);
@@ -128,8 +131,8 @@ body {
 
 :root.light {
   --background: #FAFAF9;
-  --foreground: #44403C;
-  --muted: #A8A29E;
+  --foreground: #1C1917;
+  --muted: #57534E;
   --accent: #B45309;
   --glass: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(231, 229, 228, 0.6);

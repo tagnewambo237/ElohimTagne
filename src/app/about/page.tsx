@@ -39,21 +39,21 @@ export default function AboutPage() {
                         </div>
                     </div>
 
-                    <div className="w-full md:w-1/2 flex flex-col gap-8 text-xl md:text-2xl font-light opacity-90 leading-relaxed text-stone-600 dark:text-stone-300">
-                        <TextReveal duration={1} delay={0.2}>
+                    <div className="w-full md:w-1/2 flex flex-col gap-8 text-xl md:text-2xl font-light leading-relaxed">
+                        <TextReveal duration={1} delay={0.2} className="text-stone-700 dark:text-stone-50">
                             {t.about.bio.split('.')[0] + '.'}
                         </TextReveal>
-                        <p className="opacity-80 text-lg">
+                        <p className="text-stone-600 dark:text-stone-200 text-lg">
                             {t.about.bio.split('.').slice(1).join('.')}
                         </p>
-                        <p className="opacity-80 text-lg italic border-l-2 border-accent pl-4">
+                        <p className="text-stone-600 dark:text-stone-300 text-lg italic border-l-2 border-accent pl-4">
                             "{t.about.subtitle}"
                         </p>
 
                         <div className="mt-12 grid grid-cols-2 gap-8 text-sm font-mono border-t border-stone-200 dark:border-stone-800 pt-8">
                             <div>
-                                <h3 className="uppercase tracking-widest opacity-50 mb-4 text-accent">Techniques</h3>
-                                <ul className="flex flex-col gap-2 opacity-80">
+                                <h3 className="uppercase tracking-widest text-stone-500 dark:text-stone-400 mb-4 text-accent">Techniques</h3>
+                                <ul className="flex flex-col gap-2 text-stone-600 dark:text-stone-300">
                                     <li>Node.js / Angular</li>
                                     <li>Flutter / Ionic</li>
                                     <li>HTML / CSS / JS</li>
@@ -62,8 +62,8 @@ export default function AboutPage() {
                                 </ul>
                             </div>
                             <div>
-                                <h3 className="uppercase tracking-widest opacity-50 mb-4 text-accent">Outils & Design</h3>
-                                <ul className="flex flex-col gap-2 opacity-80">
+                                <h3 className="uppercase tracking-widest text-stone-500 dark:text-stone-400 mb-4 text-accent">Outils & Design</h3>
+                                <ul className="flex flex-col gap-2 text-stone-600 dark:text-stone-300">
                                     <li>Git / Postman</li>
                                     <li>Figma / Adobe XD</li>
                                     <li>Photoshop / Illustrator</li>

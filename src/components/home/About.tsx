@@ -74,10 +74,10 @@ export default function About() {
                         </div>
                         <div className="flex flex-wrap gap-4 md:gap-6 mt-8 text-sm opacity-60 font-mono">
                             <span className="flex items-center gap-2">
-                                📍 {t.location}
+                                {t.location}
                             </span>
                             <span className="flex items-center gap-2">
-                                🌐 {t.languages}
+                                {t.languages}
                             </span>
                             {/* <span className="flex items-center gap-2 text-accent/80" title="Level 24">
                                 ✨ Lv. 24
@@ -117,7 +117,7 @@ export default function About() {
 
                 {/* Right: Image / Visual */}
                 <div className="md:col-span-12 lg:col-span-4 relative group">
-                    <CursorCat />
+                    <CursorCat className="absolute -right-36 top-10 z-20 hidden lg:flex" />
                     <ParallaxImage
                         src="/Elohim.jpeg?q=80&w=2574&auto=format&fit=crop"
                         alt="Elohim Junior"

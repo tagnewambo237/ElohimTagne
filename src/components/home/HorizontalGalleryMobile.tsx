@@ -39,7 +39,7 @@ export default function HorizontalGalleryMobile() {
     }, []);
 
     return (
-        <section className="py-24 bg-gray-900 dark:bg-black text-white md:hidden">
+        <section className="py-24 bg-stone-900 dark:bg-black text-white md:hidden">
             <div className="px-6 mb-12">
                 <span className="text-sm font-mono uppercase tracking-widest opacity-60 text-accent">{t.gallery.label}</span>
                 <h2 className="text-4xl font-semibold mt-3 tracking-tight">{t.gallery.title}</h2>
